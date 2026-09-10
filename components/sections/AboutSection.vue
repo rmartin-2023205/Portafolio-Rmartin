@@ -1,4 +1,14 @@
 <script setup lang="ts">
+import {
+  Code2,
+  Rocket,
+  Sparkles,
+  Globe,
+  ShieldCheck,
+  Zap,
+  Users,
+  Layers
+} from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
 const { personal } = portfolioData
@@ -20,7 +30,7 @@ const { personal } = portfolioData
         <!-- Main Story Tile (Spans 2 columns) -->
         <div class="bento-card bento-main card-glow-hover">
           <div class="bento-tag">
-            <span class="tag-icon">👨‍💻</span>
+            <Code2 :size="15" class="tag-icon-lucide" />
             <span>Biografía Profesional</span>
           </div>
 
@@ -36,30 +46,32 @@ const { personal } = portfolioData
 
           <div class="bento-footer-metrics">
             <div class="metric-pill">
-              <span class="metric-icon">🚀</span>
+              <Rocket :size="14" class="pill-icon-lucide" />
               <span class="metric-label">Full Stack Mindset</span>
             </div>
             <div class="metric-pill">
-              <span class="metric-icon">✨</span>
+              <Sparkles :size="14" class="pill-icon-lucide" />
               <span class="metric-label">Clean Code First</span>
             </div>
             <div class="metric-pill">
-              <span class="metric-icon">🌍</span>
+              <Globe :size="14" class="pill-icon-lucide" />
               <span class="metric-label">Open Source Ready</span>
             </div>
           </div>
         </div>
 
-        <!-- Bento Secondary Tile 1: Valores & Filosofía -->
+        <!-- Bento Secondary Tile: Valores & Filosofía -->
         <div class="bento-card bento-card-side card-glow-hover">
           <div class="bento-tag">
-            <span class="tag-icon">🎯</span>
+            <ShieldCheck :size="15" class="tag-icon-lucide" />
             <span>Pilares de Trabajo</span>
           </div>
 
           <div class="pillars-list">
             <div class="pillar-item">
-              <div class="pillar-icon">⚡</div>
+              <div class="pillar-icon">
+                <Zap :size="18" class="pillar-svg" />
+              </div>
               <div>
                 <h4>Aprendizaje Ágil</h4>
                 <p>Capacidad para asimilar nuevos frameworks, librerías y estándares en tiempo récord.</p>
@@ -67,7 +79,9 @@ const { personal } = portfolioData
             </div>
 
             <div class="pillar-item">
-              <div class="pillar-icon">🤝</div>
+              <div class="pillar-icon">
+                <Users :size="18" class="pillar-svg" />
+              </div>
               <div>
                 <h4>Colaboración Efectiva</h4>
                 <p>Comunicación transparente, sincronización con equipos de diseño y control de versiones ordenado.</p>
@@ -75,7 +89,9 @@ const { personal } = portfolioData
             </div>
 
             <div class="pillar-item">
-              <div class="pillar-icon">💎</div>
+              <div class="pillar-icon">
+                <Layers :size="18" class="pillar-svg" />
+              </div>
               <div>
                 <h4>Calidad y Mantenibilidad</h4>
                 <p>Estructura modular, código limpio y buenas prácticas para proyectos que escalan con solidez.</p>
@@ -111,6 +127,10 @@ const { personal } = portfolioData
   margin-bottom: 1.25rem;
 }
 
+.tag-icon-lucide {
+  color: var(--accent-primary);
+}
+
 .bento-headline {
   font-size: 1.625rem;
   font-weight: 800;
@@ -143,7 +163,7 @@ const { personal } = portfolioData
 .metric-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   padding: 0.35rem 0.85rem;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
@@ -151,6 +171,10 @@ const { personal } = portfolioData
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+.pill-icon-lucide {
+  color: var(--accent-primary);
 }
 
 /* Side Card */
@@ -172,11 +196,15 @@ const { personal } = portfolioData
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--accent-primary);
+  border: 1px solid rgba(99, 102, 241, 0.2);
   border-radius: var(--radius-md);
-  font-size: 1.2rem;
   flex-shrink: 0;
+}
+
+.pillar-svg {
+  color: var(--accent-primary);
 }
 
 .pillar-item h4 {

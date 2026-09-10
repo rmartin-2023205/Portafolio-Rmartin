@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ArrowUp, ArrowUpRight, Code2 } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
 const currentYear = new Date().getFullYear()
@@ -44,17 +45,19 @@ const scrollToTop = () => {
           <ul class="col-links">
             <li>
               <a :href="portfolioData.personal.github" target="_blank" rel="noopener noreferrer" class="col-link">
-                GitHub ↗
+                <span>GitHub</span>
+                <ArrowUpRight :size="13" class="arrow-svg" />
               </a>
             </li>
             <li>
               <a :href="portfolioData.personal.linkedin" target="_blank" rel="noopener noreferrer" class="col-link">
-                LinkedIn ↗
+                <span>LinkedIn</span>
+                <ArrowUpRight :size="13" class="arrow-svg" />
               </a>
             </li>
             <li>
               <a :href="`mailto:${portfolioData.personal.email}`" class="col-link">
-                {{ portfolioData.personal.email }}
+                <span>{{ portfolioData.personal.email }}</span>
               </a>
             </li>
           </ul>
@@ -69,7 +72,8 @@ const scrollToTop = () => {
 
         <div class="footer-meta">
           <span class="stack-indicator">
-            Construido con <em>Nuxt 3</em> + <em>Nitro</em> + <em>TypeScript</em>
+            <Code2 :size="14" class="code-indicator" />
+            <span>Construido con <em>Nuxt 3</em> + <em>Nitro</em> + <em>TypeScript</em></span>
           </span>
 
           <button
@@ -79,9 +83,7 @@ const scrollToTop = () => {
             @click="scrollToTop"
           >
             <span>Volver arriba</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m18 15-6-6-6 6" />
-            </svg>
+            <ArrowUp :size="14" />
           </button>
         </div>
       </div>
@@ -181,12 +183,22 @@ const scrollToTop = () => {
   color: var(--text-secondary);
   text-decoration: none;
   transition: color var(--transition-fast), transform var(--transition-fast);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 .col-link:hover {
   color: var(--accent-primary);
   transform: translateX(3px);
+}
+
+.arrow-svg {
+  transition: transform var(--transition-fast);
+}
+
+.col-link:hover .arrow-svg {
+  transform: translate(2px, -2px);
 }
 
 /* Bottom Bar */
@@ -217,8 +229,15 @@ const scrollToTop = () => {
 }
 
 .stack-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-size: 0.8125rem;
   color: var(--text-muted);
+}
+
+.code-indicator {
+  color: var(--accent-primary);
 }
 
 .stack-indicator em {

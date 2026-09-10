@@ -1,7 +1,27 @@
 <script setup lang="ts">
+import {
+  Armchair,
+  Globe,
+  MessageSquare,
+  Github,
+  ArrowUpRight,
+  FolderGit2
+} from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
 const { projects } = portfolioData
+
+const getProjectIcon = (iconName: string) => {
+  switch (iconName) {
+    case 'Globe':
+      return Globe
+    case 'MessageSquare':
+      return MessageSquare
+    case 'Armchair':
+    default:
+      return Armchair
+  }
+}
 </script>
 
 <template>
@@ -28,14 +48,19 @@ const { projects } = portfolioData
               <span class="window-dot dot-yellow"></span>
               <span class="window-dot dot-green"></span>
             </div>
-            <span class="window-title">{{ project.id }}.app</span>
+            <div class="window-slug">
+              <FolderGit2 :size="12" class="slug-icon" />
+              <span>{{ project.id }}.app</span>
+            </div>
             <div class="window-spacer"></div>
           </div>
 
-          <!-- Project Gradient Visual Banner -->
+          <!-- Project Gradient Visual Banner with Lucide Icon -->
           <div class="project-banner" :style="{ background: project.gradient }">
             <div class="banner-overlay"></div>
-            <span class="project-icon-large">{{ project.icon }}</span>
+            <div class="project-icon-badge">
+              <component :is="getProjectIcon(project.icon)" :size="48" class="project-svg-icon" />
+            </div>
           </div>
 
           <!-- Project Details -->
@@ -62,15 +87,11 @@ const { projects } = portfolioData
                 rel="noopener noreferrer"
                 class="btn btn-secondary project-btn"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                  <path d="M9 18c-4.51 2-5-2-7-2" />
-                </svg>
-                <span>Repositorio en GitHub</span>
-                <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 17L17 7" />
-                  <path d="M7 7h10v10" />
-                </svg>
+                <div class="btn-left">
+                  <Github :size="16" />
+                  <span>Código en GitHub</span>
+                </div>
+                <ArrowUpRight :size="15" class="btn-arrow" />
               </a>
             </div>
           </div>
@@ -99,8 +120,21 @@ const { projects } = portfolioData
   border-radius: var(--radius-xl);
 }
 
+.window-slug {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.slug-icon {
+  color: var(--accent-primary);
+}
+
 .window-spacer {
-  width: 40px;
+  width: 32px;
 }
 
 .project-banner {
@@ -115,19 +149,33 @@ const { projects } = portfolioData
 .banner-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.4) 100%);
+  background: radial-gradient(circle at center, transparent 25%, rgba(0, 0, 0, 0.45) 100%);
 }
 
-.project-icon-large {
-  font-size: 4rem;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.3));
+.project-icon-badge {
+  width: 88px;
+  height: 88px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 1;
   transition: transform var(--transition-normal);
 }
 
-.project-card:hover .project-icon-large {
-  transform: scale(1.15) rotate(4deg);
+.project-card:hover .project-icon-badge {
+  transform: scale(1.1) rotate(4deg);
+}
+
+.project-svg-icon {
+  color: #ffffff;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
 }
 
 .project-body {
@@ -183,7 +231,13 @@ const { projects } = portfolioData
 .project-btn {
   width: 100%;
   justify-content: space-between;
-  padding: 0.75rem 1.25rem;
+  padding: 0.8rem 1.25rem;
+}
+
+.btn-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 .btn-arrow {

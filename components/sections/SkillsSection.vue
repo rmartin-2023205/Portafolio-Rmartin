@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { Sparkles, Code2, Database, Wrench, Layers } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
 const { skills } = portfolioData
 const activeCategory = ref<'Todos' | 'Frontend' | 'Backend' | 'Tools & Design'>('Todos')
 
-const categories: Array<'Todos' | 'Frontend' | 'Backend' | 'Tools & Design'> = [
-  'Todos',
-  'Frontend',
-  'Backend',
-  'Tools & Design'
+const categories: Array<{ id: 'Todos' | 'Frontend' | 'Backend' | 'Tools & Design'; label: string; icon: any }> = [
+  { id: 'Todos', label: 'Todos', icon: Sparkles },
+  { id: 'Frontend', label: 'Frontend', icon: Code2 },
+  { id: 'Backend', label: 'Backend', icon: Database },
+  { id: 'Tools & Design', label: 'Tools & Design', icon: Wrench }
 ]
 
 const filteredSkills = computed(() => {
@@ -48,19 +49,20 @@ const getLevelBadgeClass = (level: string) => {
         </p>
       </div>
 
-      <!-- Interactive Category Filter Tabs -->
+      <!-- Interactive Category Filter Tabs with Lucide Icons -->
       <div class="skills-tabs-wrap">
         <div class="skills-tabs">
           <button
             v-for="cat in categories"
-            :key="cat"
+            :key="cat.id"
             type="button"
             class="tab-btn"
-            :class="{ active: activeCategory === cat }"
-            @click="activeCategory = cat"
+            :class="{ active: activeCategory === cat.id }"
+            @click="activeCategory = cat.id"
           >
-            <span>{{ cat }}</span>
-            <span class="tab-count">{{ getCategoryCount(cat) }}</span>
+            <component :is="cat.icon" :size="14" class="tab-icon-svg" />
+            <span>{{ cat.label }}</span>
+            <span class="tab-count">{{ getCategoryCount(cat.id) }}</span>
           </button>
         </div>
       </div>
@@ -91,7 +93,7 @@ const getLevelBadgeClass = (level: string) => {
               ></div>
             </div>
             <div class="meter-label">
-              <span class="meter-caption">Dominio técnico</span>
+              <span class="meter-caption">Nivel de dominio</span>
               <span class="meter-percent">{{ skill.percentage }}%</span>
             </div>
           </div>
@@ -141,6 +143,10 @@ const getLevelBadgeClass = (level: string) => {
   transition: all var(--transition-fast);
 }
 
+.tab-icon-svg {
+  transition: transform var(--transition-fast);
+}
+
 .tab-btn:hover {
   color: var(--text-primary);
 }
@@ -151,10 +157,14 @@ const getLevelBadgeClass = (level: string) => {
   box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
 }
 
+.tab-btn.active .tab-icon-svg {
+  transform: scale(1.1);
+}
+
 .tab-count {
   font-size: 0.75rem;
-  padding: 0.15rem 0.45rem;
-  background: rgba(0, 0, 0, 0.15);
+  padding: 0.15rem 0.5rem;
+  background: rgba(0, 0, 0, 0.18);
   border-radius: var(--radius-full);
 }
 

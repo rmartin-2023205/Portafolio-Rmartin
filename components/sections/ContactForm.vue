@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import {
+  CheckCircle2,
+  AlertCircle,
+  Send,
+  Loader2
+} from 'lucide-vue-next'
 
 const form = reactive({
   nombre: '',
@@ -95,7 +101,7 @@ const resetStatus = () => {
     <!-- Success Feedback Box -->
     <transition name="fade">
       <div v-if="status === 'success'" class="alert-box success-alert">
-        <div class="alert-icon">✓</div>
+        <CheckCircle2 :size="28" class="success-icon" />
         <div class="alert-body">
           <h4>¡Mensaje transmitido con éxito!</h4>
           <p>Gracias por tu comunicación. Ricardo Martín revisará tu mensaje y se pondrá en contacto pronto.</p>
@@ -109,7 +115,7 @@ const resetStatus = () => {
     <!-- Error Alert Box -->
     <transition name="fade">
       <div v-if="status === 'error'" class="alert-box error-alert">
-        <div class="alert-icon">✕</div>
+        <AlertCircle :size="28" class="error-icon" />
         <div class="alert-body">
           <h4>No se pudo procesar el envío</h4>
           <p>{{ errorMessage }}</p>
@@ -193,17 +199,12 @@ const resetStatus = () => {
         :disabled="status === 'loading'"
       >
         <span v-if="status === 'loading'" class="loading-state">
-          <svg class="loading-spinner" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-          </svg>
+          <Loader2 :size="18" class="loading-spinner" />
           <span>Enviando mensaje...</span>
         </span>
         <span v-else class="normal-state">
           <span>Enviar mensaje</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="22" y1="2" x2="11" y2="13" />
-            <polygon points="22 2 15 22 11 13 2 9 22 2" />
-          </svg>
+          <Send :size="16" />
         </span>
       </button>
     </form>
@@ -332,21 +333,23 @@ const resetStatus = () => {
 /* Alert Boxes */
 .alert-box {
   display: flex;
+  align-items: flex-start;
   gap: 1rem;
   padding: 1.5rem;
   border-radius: var(--radius-md);
   margin-bottom: 1.5rem;
 }
 
-.alert-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
+.success-icon {
+  color: #10b981;
   flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.error-icon {
+  color: #ef4444;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .success-alert {
@@ -355,20 +358,10 @@ const resetStatus = () => {
   color: var(--text-primary);
 }
 
-.success-alert .alert-icon {
-  background: #10b981;
-  color: #ffffff;
-}
-
 .error-alert {
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.3);
   color: var(--text-primary);
-}
-
-.error-alert .alert-icon {
-  background: #ef4444;
-  color: #ffffff;
 }
 
 .alert-body h4 {

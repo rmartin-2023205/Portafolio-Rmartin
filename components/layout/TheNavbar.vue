@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { Sun, Moon, Menu, X, ArrowUpRight, Sparkles } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 import { useTheme } from '~/composables/useTheme'
 
@@ -12,13 +13,12 @@ const handleScroll = () => {
   if (import.meta.client) {
     isScrolled.value = window.scrollY > 20
 
-    // Detect active section for indicator
     const sections = ['inicio', 'sobre', 'educacion', 'habilidades', 'proyectos', 'experiencia', 'contacto']
     for (const sectionId of sections) {
       const el = document.getElementById(sectionId)
       if (el) {
         const rect = el.getBoundingClientRect()
-        if (rect.top <= 120 && rect.bottom >= 120) {
+        if (rect.top <= 140 && rect.bottom >= 140) {
           activeSection.value = sectionId
           break
         }
@@ -56,10 +56,13 @@ onUnmounted(() => {
           <div class="logo-badge">
             <span>RM</span>
           </div>
-          <span class="logo-name">{{ portfolioData.personal.name }}</span>
+          <div class="logo-text-group">
+            <span class="logo-name">{{ portfolioData.personal.name }}</span>
+            <span class="logo-tag">Dev</span>
+          </div>
         </a>
 
-        <!-- Desktop Links -->
+        <!-- Desktop Navigation -->
         <nav class="navbar-nav" aria-label="Navegación principal">
           <ul class="nav-list">
             <li v-for="item in portfolioData.navigation" :key="item.href">
@@ -84,53 +87,14 @@ onUnmounted(() => {
             :title="isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
             @click="toggleTheme"
           >
-            <!-- Sun -->
-            <svg
-              v-if="isDark"
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2" />
-              <path d="M12 20v2" />
-              <path d="m4.93 4.93 1.41 1.41" />
-              <path d="m17.66 17.66 1.41 1.41" />
-              <path d="M2 12h2" />
-              <path d="M20 12h2" />
-              <path d="m6.34 17.66-1.41 1.41" />
-              <path d="m19.07 4.93-1.41 1.41" />
-            </svg>
-            <!-- Moon -->
-            <svg
-              v-else
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-            </svg>
+            <Sun v-if="isDark" :size="17" class="theme-icon-lucide" />
+            <Moon v-else :size="17" class="theme-icon-lucide" />
           </button>
 
           <!-- Contact Quick CTA -->
           <a href="#contacto" class="btn btn-primary btn-nav-cta">
             <span>Hablemos</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
+            <ArrowUpRight :size="15" />
           </a>
 
           <!-- Mobile Hamburger -->
@@ -142,9 +106,8 @@ onUnmounted(() => {
             :aria-expanded="isMenuOpen"
             @click="toggleMenu"
           >
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+            <X v-if="isMenuOpen" :size="20" />
+            <Menu v-else :size="20" />
           </button>
         </div>
       </div>
@@ -172,7 +135,8 @@ onUnmounted(() => {
         </nav>
         <div class="mobile-drawer-bottom">
           <a href="#contacto" class="btn btn-primary" style="width: 100%;" @click="closeMenu">
-            Iniciar Conversación
+            <span>Iniciar Conversación</span>
+            <ArrowUpRight :size="16" />
           </a>
         </div>
       </div>
@@ -202,8 +166,8 @@ onUnmounted(() => {
   justify-content: space-between;
   padding: 0.5rem 0.85rem 0.5rem 1rem;
   background: var(--bg-surface-glass);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-sm);
@@ -212,7 +176,7 @@ onUnmounted(() => {
 
 .navbar-scrolled .navbar-pill {
   border-color: var(--border-hover);
-  box-shadow: var(--shadow-md), 0 0 20px -5px rgba(99, 102, 241, 0.15);
+  box-shadow: var(--shadow-md), 0 0 25px -5px rgba(99, 102, 241, 0.2);
 }
 
 /* Logo */
@@ -234,7 +198,13 @@ onUnmounted(() => {
   font-weight: 800;
   font-size: 0.9375rem;
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 10px rgba(79, 70, 229, 0.35);
+  box-shadow: 0 3px 12px rgba(79, 70, 229, 0.4);
+}
+
+.logo-text-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .logo-name {
@@ -242,6 +212,16 @@ onUnmounted(() => {
   font-size: 1.0625rem;
   color: var(--text-primary);
   letter-spacing: -0.02em;
+}
+
+.logo-tag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--accent-primary);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
 }
 
 /* Nav Links */
@@ -252,7 +232,7 @@ onUnmounted(() => {
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.25rem;
   list-style: none;
 }
 
@@ -273,7 +253,7 @@ onUnmounted(() => {
 
 .nav-link.active {
   color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.12);
+  background: rgba(99, 102, 241, 0.14);
   font-weight: 600;
 }
 
@@ -304,52 +284,36 @@ onUnmounted(() => {
   transform: rotate(15deg);
 }
 
+.theme-icon-lucide {
+  transition: transform var(--transition-fast);
+}
+
 .btn-nav-cta {
-  padding: 0.5rem 1.1rem;
+  padding: 0.5rem 1.15rem;
   font-size: 0.875rem;
   border-radius: var(--radius-full);
 }
 
-/* Hamburger Button */
+/* Hamburger */
 .hamburger-btn {
   display: none;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 5px;
   width: 38px;
   height: 38px;
-  padding: 8px;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
+  color: var(--text-primary);
   cursor: pointer;
-}
-
-.bar {
-  display: block;
-  height: 2px;
-  width: 100%;
-  background: var(--text-primary);
-  border-radius: 2px;
-  transition: all 0.2s ease;
-}
-
-.hamburger-btn.active .bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.hamburger-btn.active .bar:nth-child(2) {
-  opacity: 0;
-}
-.hamburger-btn.active .bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Mobile Drawer */
 .mobile-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
   z-index: 45;
 }
 
@@ -396,7 +360,6 @@ onUnmounted(() => {
   border-top: 1px solid var(--border-subtle);
 }
 
-/* Animations */
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.25s ease;
 }

@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import {
+  Mail,
+  Github,
+  Linkedin,
+  Copy,
+  Check,
+  ArrowUpRight,
+  Clock
+} from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
 const { personal } = portfolioData
@@ -32,20 +41,17 @@ const copyEmail = async () => {
       <div class="contact-layout">
         <!-- Direct Channels Panel -->
         <div class="contact-cards-column">
-          <!-- Guarantee Pill -->
+          <!-- Response Guarantee Pill -->
           <div class="response-guarantee">
-            <span class="guarantee-dot"></span>
-            <span>Respuesta en menos de 24 horas</span>
+            <Clock :size="14" class="clock-svg" />
+            <span>Respuesta garantizada en menos de 24 horas</span>
           </div>
 
           <!-- Email Card with Copy Action -->
           <div class="bento-card channel-card card-glow-hover">
             <div class="channel-top">
               <div class="channel-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="20" height="16" x="2" y="4" rx="2" />
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                </svg>
+                <Mail :size="20" />
               </div>
               <button
                 type="button"
@@ -54,8 +60,14 @@ const copyEmail = async () => {
                 :title="emailCopied ? '¡Email copiado!' : 'Copiar email al portapapeles'"
                 @click="copyEmail"
               >
-                <span v-if="emailCopied" class="copied-indicator">✓ Copiado</span>
-                <span v-else class="copy-text">Copiar</span>
+                <template v-if="emailCopied">
+                  <Check :size="13" />
+                  <span class="copied-indicator">Copiado</span>
+                </template>
+                <template v-else>
+                  <Copy :size="13" />
+                  <span class="copy-text">Copiar</span>
+                </template>
               </button>
             </div>
             <div class="channel-info">
@@ -75,12 +87,9 @@ const copyEmail = async () => {
           >
             <div class="channel-top">
               <div class="channel-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                  <path d="M9 18c-4.51 2-5-2-7-2" />
-                </svg>
+                <Github :size="20" />
               </div>
-              <span class="external-arrow">↗</span>
+              <ArrowUpRight :size="18" class="external-arrow" />
             </div>
             <div class="channel-info">
               <span class="channel-label">Perfil de GitHub</span>
@@ -97,13 +106,9 @@ const copyEmail = async () => {
           >
             <div class="channel-top">
               <div class="channel-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect width="4" height="12" x="2" y="9" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
+                <Linkedin :size="20" />
               </div>
-              <span class="external-arrow">↗</span>
+              <ArrowUpRight :size="18" class="external-arrow" />
             </div>
             <div class="channel-info">
               <span class="channel-label">Red Profesional</span>
@@ -155,12 +160,8 @@ const copyEmail = async () => {
   align-self: flex-start;
 }
 
-.guarantee-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
+.clock-svg {
+  color: #10b981;
 }
 
 .channel-card {
@@ -193,6 +194,9 @@ const copyEmail = async () => {
 }
 
 .copy-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
@@ -217,8 +221,6 @@ const copyEmail = async () => {
 }
 
 .external-arrow {
-  font-size: 1.25rem;
-  font-weight: 700;
   color: var(--text-muted);
   transition: transform var(--transition-fast), color var(--transition-fast);
 }

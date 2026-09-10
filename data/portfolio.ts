@@ -33,7 +33,7 @@ export const portfolioData: PortfolioData = {
       institution: 'Centro Educativo Técnico Laboral KINAL',
       period: '2023 - 2025',
       description: 'Formación en HTML, CSS, JavaScript, bases de datos y desarrollo de aplicaciones web.',
-      icon: '🎓'
+      icon: 'GraduationCap'
     },
     {
       id: 'umg-ingenieria',
@@ -41,7 +41,7 @@ export const portfolioData: PortfolioData = {
       institution: 'Universidad Mariano Gálvez',
       period: '2026',
       description: 'Mantenimiento de sistemas operativos y equipos de cómputo.',
-      icon: '📚'
+      icon: 'BookOpen'
     },
     {
       id: 'kinal-ccna',
@@ -49,7 +49,7 @@ export const portfolioData: PortfolioData = {
       institution: 'Centro Educativo Técnico Laboral KINAL',
       period: '2023',
       description: 'Introducción a redes de computadoras, protocolos y topologías básicas.',
-      icon: '⚡'
+      icon: 'Network'
     }
   ],
   skills: [
@@ -71,8 +71,8 @@ export const portfolioData: PortfolioData = {
       description: 'E-commerce de renta de mobiliarios. Plataforma frontend desarrollada en React con gestión de catálogo, carrito de compras y sistema de reservas. Integrado con MongoDB.',
       tags: ['React', 'MongoDB', 'Node.js'],
       githubUrl: 'https://github.com/jmarroquin-2023026/MobiExpress-React.git',
-      gradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-      icon: '🪑'
+      gradient: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+      icon: 'Armchair'
     },
     {
       id: 'blog-personal',
@@ -81,7 +81,7 @@ export const portfolioData: PortfolioData = {
       tags: ['React', 'Node.js', 'MongoDB'],
       githubUrl: 'https://github.com/rmartin-2023205/BlogPersonalFrontEnd.git',
       gradient: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-      icon: '🌐'
+      icon: 'Globe'
     },
     {
       id: 'gestor-opiniones',
@@ -89,8 +89,8 @@ export const portfolioData: PortfolioData = {
       description: 'Sistema backend para gestión de opiniones y reseñas. API REST desarrollada en Node.js con Express y base de datos MongoDB. Incluye autenticación y validaciones.',
       tags: ['Node.js', 'Express', 'MongoDB'],
       githubUrl: 'https://github.com/rmartin-2023205',
-      gradient: 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)',
-      icon: '💬'
+      gradient: 'linear-gradient(135deg, #0ea5e9 0%, #0891b2 100%)',
+      icon: 'MessageSquare'
     }
   ],
   experience: [

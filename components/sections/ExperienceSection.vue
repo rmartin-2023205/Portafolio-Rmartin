@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Briefcase, Calendar, BadgeCheck, GitBranch } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
 const { experience } = portfolioData
@@ -34,20 +35,10 @@ const { experience } = portfolioData
             <div class="timeline-header">
               <div class="company-wrap">
                 <span class="company-badge">{{ item.company }}</span>
-                <span class="verified-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
-                </span>
+                <BadgeCheck :size="16" class="verified-check" />
               </div>
               <span class="period-pill">
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-                  <line x1="16" x2="16" y1="2" y2="6" />
-                  <line x1="8" x2="8" y1="2" y2="6" />
-                  <line x1="3" x2="21" y1="10" y2="10" />
-                </svg>
+                <Calendar :size="13" />
                 <span>{{ item.period }}</span>
               </span>
             </div>
@@ -155,6 +146,10 @@ const { experience } = portfolioData
   font-size: 1rem;
   font-weight: 700;
   color: var(--accent-secondary);
+}
+
+.verified-check {
+  color: #10b981;
 }
 
 .period-pill {

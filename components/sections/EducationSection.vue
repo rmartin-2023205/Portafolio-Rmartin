@@ -1,7 +1,20 @@
 <script setup lang="ts">
+import { GraduationCap, BookOpen, Network, BadgeCheck } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
 const { education } = portfolioData
+
+const getEduIcon = (iconName: string) => {
+  switch (iconName) {
+    case 'BookOpen':
+      return BookOpen
+    case 'Network':
+      return Network
+    case 'GraduationCap':
+    default:
+      return GraduationCap
+  }
+}
 </script>
 
 <template>
@@ -23,7 +36,7 @@ const { education } = portfolioData
         >
           <div class="edu-card-top">
             <div class="edu-icon-badge">
-              <span>{{ item.icon }}</span>
+              <component :is="getEduIcon(item.icon)" :size="22" class="edu-svg" />
             </div>
             <div class="edu-status-pill">
               <span v-if="item.id === 'umg-ingenieria'" class="active-dot"></span>
@@ -39,11 +52,8 @@ const { education } = portfolioData
 
           <div class="edu-footer">
             <span class="edu-verified-tag">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-              </svg>
-              <span>Acreditado</span>
+              <BadgeCheck :size="15" class="badge-check-svg" />
+              <span>Acreditado Oficialmente</span>
             </span>
           </div>
         </div>
@@ -79,22 +89,26 @@ const { education } = portfolioData
 }
 
 .edu-icon-badge {
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--accent-primary);
+  border: 1px solid rgba(99, 102, 241, 0.25);
   border-radius: var(--radius-md);
-  font-size: 1.5rem;
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.edu-svg {
+  color: var(--accent-primary);
 }
 
 .edu-status-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   padding: 0.35rem 0.8rem;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -109,6 +123,7 @@ const { education } = portfolioData
   height: 7px;
   background: #10b981;
   border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
   animation: pulseDot 2s infinite ease-in-out;
 }
 
@@ -146,9 +161,13 @@ const { education } = portfolioData
 .edu-verified-tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   font-size: 0.75rem;
   font-weight: 600;
+  color: #10b981;
+}
+
+.badge-check-svg {
   color: #10b981;
 }
 
