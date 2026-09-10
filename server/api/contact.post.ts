@@ -1,6 +1,6 @@
-// @ts-ignore: El paquete de Resend incluye soporte para React Email por defecto
 import { Resend } from 'resend'
 import { z } from 'zod'
+import { defineEventHandler, readBody, createError, getRequestIP } from 'h3'
 
 // Esquema de validación estricto con Zod
 const contactSchema = z.object({
