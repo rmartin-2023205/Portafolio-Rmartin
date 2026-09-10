@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { GraduationCap, BookOpen, Network, BadgeCheck } from 'lucide-vue-next'
+import {
+  GraduationCap,
+  BookOpen,
+  Network,
+  Clock,
+  BadgeCheck
+} from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
-const { education } = portfolioData
-
-const getEduIcon = (iconName: string) => {
+const getIcon = (iconName: string) => {
   switch (iconName) {
+    case 'GraduationCap':
+      return GraduationCap
     case 'BookOpen':
       return BookOpen
     case 'Network':
       return Network
-    case 'GraduationCap':
     default:
       return GraduationCap
   }
@@ -18,162 +23,68 @@ const getEduIcon = (iconName: string) => {
 </script>
 
 <template>
-  <section id="educacion" class="section education-section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge">Fundamentos Académicos</span>
-        <h2 class="section-title">Educación & Certificaciones</h2>
-        <p class="section-subtitle">
-          Formación técnica integral y preparación universitaria en ciencias de la computación e ingeniería.
+  <section id="educacion" class="py-20 md:py-28 relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- Section Header -->
+      <div class="mb-12 md:mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 mb-3">
+          <GraduationCap :size="13" />
+          <span>Formación Académica</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+          Educación y Certificaciones
+        </h2>
+        <p class="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base mt-2 max-w-2xl">
+          Bases formales en ciencias de la computación, desarrollo web y redes informáticas.
         </p>
       </div>
 
-      <div class="education-cards-grid">
+      <!-- Education Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div
-          v-for="item in education"
+          v-for="item in portfolioData.education"
           :key="item.id"
-          class="bento-card edu-card card-glow-hover"
+          class="bg-white dark:bg-[#0c1220] border border-zinc-200 dark:border-white/10 rounded-2xl p-6 shadow-sm hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/5 transition-all duration-300 flex flex-col justify-between group"
         >
-          <div class="edu-card-top">
-            <div class="edu-icon-badge">
-              <component :is="getEduIcon(item.icon)" :size="22" class="edu-svg" />
+          <div>
+            <!-- Top Row: Icon + Period Badge -->
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div class="w-11 h-11 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <component :is="getIcon(item.icon)" :size="22" />
+              </div>
+
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-white/5 border border-zinc-200/60 dark:border-white/5 text-[11px] font-mono text-zinc-600 dark:text-zinc-300">
+                <Clock :size="11" />
+                <span>{{ item.period }}</span>
+              </div>
             </div>
-            <div class="edu-status-pill">
-              <span v-if="item.id === 'umg-ingenieria'" class="active-dot"></span>
-              <span>{{ item.period }}</span>
+
+            <!-- Title -->
+            <h3 class="text-base font-bold text-zinc-900 dark:text-white mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+              {{ item.title }}
+            </h3>
+
+            <!-- Institution -->
+            <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-3">
+              {{ item.institution }}
             </div>
+
+            <!-- Description -->
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              {{ item.description }}
+            </p>
           </div>
 
-          <div class="edu-body">
-            <h3 class="edu-title">{{ item.title }}</h3>
-            <p class="edu-institution">{{ item.institution }}</p>
-            <p class="edu-description">{{ item.description }}</p>
-          </div>
-
-          <div class="edu-footer">
-            <span class="edu-verified-tag">
-              <BadgeCheck :size="15" class="badge-check-svg" />
-              <span>Acreditado Oficialmente</span>
+          <!-- Bottom Status Badge -->
+          <div class="pt-5 mt-5 border-t border-zinc-200/60 dark:border-white/5 flex items-center justify-between text-[11px]">
+            <span class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
+              <BadgeCheck :size="12" />
+              <span>{{ item.period.includes('2026') ? 'En curso actual' : 'Acreditado' }}</span>
             </span>
+            <span class="text-zinc-400 dark:text-zinc-500 font-mono">ID: {{ item.id }}</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.education-section {
-  padding: 6rem 0;
-}
-
-.education-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 1.75rem;
-}
-
-.edu-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 2rem;
-  min-height: 270px;
-}
-
-.edu-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-}
-
-.edu-icon-badge {
-  width: 46px;
-  height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(99, 102, 241, 0.1);
-  color: var(--accent-primary);
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
-}
-
-.edu-svg {
-  color: var(--accent-primary);
-}
-
-.edu-status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.35rem 0.8rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.08);
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  border-radius: var(--radius-full);
-}
-
-.active-dot {
-  width: 7px;
-  height: 7px;
-  background: #10b981;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #10b981;
-  animation: pulseDot 2s infinite ease-in-out;
-}
-
-.edu-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.edu-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.3;
-}
-
-.edu-institution {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--accent-secondary);
-}
-
-.edu-description {
-  font-size: 0.9375rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.edu-footer {
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.edu-verified-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #10b981;
-}
-
-.badge-check-svg {
-  color: #10b981;
-}
-
-@media (max-width: 640px) {
-  .education-cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

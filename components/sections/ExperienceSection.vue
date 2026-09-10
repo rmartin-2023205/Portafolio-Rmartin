@@ -1,56 +1,69 @@
 <script setup lang="ts">
-import { Briefcase, Calendar, BadgeCheck, GitBranch } from 'lucide-vue-next'
+import {
+  Briefcase,
+  Clock,
+  ExternalLink
+} from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
-
-const { experience } = portfolioData
 </script>
 
 <template>
-  <section id="experiencia" class="section experience-section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge">Trayectoria & Prácticas</span>
-        <h2 class="section-title">Experiencia Profesional</h2>
-        <p class="section-subtitle">
-          Participación en entornos ágiles, desarrollo de interfaces frontend y contribuciones en proyectos de código abierto.
+  <section id="experiencia" class="py-20 md:py-28 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <!-- Section Header -->
+      <div class="mb-12 md:mb-16 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 mb-3">
+          <Briefcase :size="13" />
+          <span>Experiencia y Práctica</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+          Trayectoria Práctica
+        </h2>
+        <p class="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base mt-2 max-w-xl mx-auto">
+          Experiencia en proyectos colaborativos, desarrollo de software y participación open source.
         </p>
       </div>
 
-      <div class="timeline-container">
+      <!-- Vertical Timeline -->
+      <div class="relative border-l-2 border-indigo-500/30 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-10">
         <div
-          v-for="(item, index) in experience"
+          v-for="item in portfolioData.experience"
           :key="item.id"
-          class="timeline-block"
+          class="relative group"
         >
-          <!-- Timeline Spine Indicator -->
-          <div class="timeline-spine">
-            <div class="spine-node">
-              <span class="spine-dot"></span>
-            </div>
-            <div v-if="index < experience.length - 1" class="spine-line"></div>
-          </div>
+          <!-- Timeline Glowing Node -->
+          <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-indigo-600 border-4 border-white dark:border-[#05070c] shadow-md shadow-indigo-500/40 group-hover:scale-125 transition-transform"></div>
 
-          <!-- Timeline Content Card -->
-          <div class="bento-card timeline-card card-glow-hover">
-            <div class="timeline-header">
-              <div class="company-wrap">
-                <span class="company-badge">{{ item.company }}</span>
-                <BadgeCheck :size="16" class="verified-check" />
-              </div>
-              <span class="period-pill">
-                <Calendar :size="13" />
+          <!-- Card Content -->
+          <div class="bg-white dark:bg-[#0c1220] border border-zinc-200 dark:border-white/10 rounded-2xl p-6 shadow-sm hover:border-indigo-500/30 transition-all duration-300">
+            <!-- Period Badge + Role -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[11px] font-mono font-medium">
+                <Clock :size="12" />
                 <span>{{ item.period }}</span>
               </span>
+              <span class="text-xs text-zinc-400 dark:text-zinc-500 font-mono">{{ item.id }}</span>
             </div>
 
-            <h3 class="role-title">{{ item.role }}</h3>
-            <p class="role-description">{{ item.description }}</p>
+            <!-- Role & Company -->
+            <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+              {{ item.role }}
+            </h3>
+            <div class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 mb-4">
+              {{ item.company }}
+            </div>
 
-            <div class="role-tags">
+            <!-- Description -->
+            <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-5">
+              {{ item.description }}
+            </p>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-1.5">
               <span
                 v-for="tag in item.tags"
                 :key="tag"
-                class="role-tag"
+                class="px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-zinc-100 dark:bg-white/5 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-white/5"
               >
                 {{ tag }}
               </span>
@@ -61,147 +74,3 @@ const { experience } = portfolioData
     </div>
   </section>
 </template>
-
-<style scoped>
-.experience-section {
-  padding: 6rem 0;
-}
-
-.timeline-container {
-  max-width: 860px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  position: relative;
-}
-
-.timeline-block {
-  display: flex;
-  gap: 2rem;
-  position: relative;
-}
-
-/* Spine */
-.timeline-spine {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  width: 32px;
-  flex-shrink: 0;
-}
-
-.spine-node {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--bg-surface);
-  border: 2px solid var(--accent-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1.5rem;
-  z-index: 2;
-  box-shadow: 0 0 16px -2px rgba(99, 102, 241, 0.5);
-}
-
-.spine-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent-primary);
-}
-
-.spine-line {
-  position: absolute;
-  top: 3rem;
-  bottom: -2rem;
-  width: 2px;
-  background: linear-gradient(180deg, var(--accent-primary) 0%, var(--border-subtle) 100%);
-}
-
-/* Card */
-.timeline-card {
-  flex: 1;
-  padding: 2rem;
-}
-
-.timeline-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.company-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.company-badge {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--accent-secondary);
-}
-
-.verified-check {
-  color: #10b981;
-}
-
-.period-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.08);
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  border-radius: var(--radius-full);
-}
-
-.role-title {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.02em;
-}
-
-.role-description {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-}
-
-.role-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.role-tag {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.75rem;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  color: var(--text-secondary);
-}
-
-@media (max-width: 640px) {
-  .timeline-block {
-    gap: 1rem;
-  }
-  .timeline-card {
-    padding: 1.5rem;
-  }
-}
-</style>

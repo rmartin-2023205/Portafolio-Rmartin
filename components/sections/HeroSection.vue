@@ -8,8 +8,7 @@ import {
   Copy,
   Check,
   FileCode2,
-  Sparkles,
-  Layers
+  Terminal
 } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
@@ -19,6 +18,7 @@ const codeCopied = ref(false)
 const copyProfileCode = async () => {
   const codeSnippet = `const developer = {
   name: '${personal.name}',
+  fullName: '${personal.fullName}',
   role: '${personal.role}',
   location: 'Guatemala',
   education: [
@@ -42,135 +42,168 @@ const copyProfileCode = async () => {
 </script>
 
 <template>
-  <section id="inicio" class="hero-section">
-    <div class="container hero-grid">
-      <!-- Left Column: Copy & CTAs -->
-      <div class="hero-content">
-        <!-- Status Indicator Pill -->
-        <div class="hero-status-wrap">
-          <div class="status-pill">
-            <span class="status-dot"></span>
-            <span class="status-text">Disponible para nuevos proyectos</span>
+  <section id="inicio" class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+    <!-- Atmospheric Background Radial Lights -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-indigo-500/15 via-cyan-500/10 to-transparent blur-[120px] pointer-events-none -z-10"></div>
+    <div class="absolute top-12 right-10 w-72 h-72 bg-purple-500/10 blur-[100px] pointer-events-none -z-10"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <!-- Left Column: Copy & Actions -->
+        <div class="lg:col-span-7 flex flex-col items-start">
+          <!-- Availability Badge -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-6">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>Disponible para nuevos proyectos</span>
           </div>
-        </div>
 
-        <!-- Main Title -->
-        <h1 class="hero-headline">
-          Construyendo aplicaciones web <span class="gradient-text">escalables, modernas y funcionales</span>.
-        </h1>
+          <!-- Headline -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.12] mb-6">
+            Construyendo soluciones web
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-indigo-400 to-cyan-400">
+              escalables, modernas y funcionales
+            </span>.
+          </h1>
 
-        <!-- Subheading -->
-        <p class="hero-subheading">
-          Hola, soy <strong class="text-highlight">{{ personal.name }}</strong> ({{ personal.fullName }}), {{ personal.role.toLowerCase() }}.
-          {{ personal.description }}
-        </p>
+          <!-- Subtitle -->
+          <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 max-w-xl">
+            Hola, soy <strong class="text-zinc-900 dark:text-white font-semibold">{{ personal.name }}</strong> ({{ personal.fullName }}), {{ personal.role.toLowerCase() }}.
+            {{ personal.description }}
+          </p>
 
-        <!-- CTAs -->
-        <div class="hero-cta-group">
-          <a href="#proyectos" class="btn btn-primary">
-            <span>Explorar Proyectos</span>
-            <ArrowRight :size="17" />
-          </a>
-
-          <a href="#contacto" class="btn btn-secondary">
-            <span>Contactar</span>
-            <Send :size="16" />
-          </a>
-        </div>
-
-        <!-- Social & Quick Proof Links -->
-        <div class="hero-social-strip">
-          <a :href="personal.github" target="_blank" rel="noopener noreferrer" class="social-chip" title="Ver GitHub">
-            <Github :size="16" />
-            <span>GitHub</span>
-          </a>
-
-          <a :href="personal.linkedin" target="_blank" rel="noopener noreferrer" class="social-chip" title="Ver LinkedIn">
-            <Linkedin :size="16" />
-            <span>LinkedIn</span>
-          </a>
-
-          <div class="social-chip email-chip" title="Email directo">
-            <span>{{ personal.email }}</span>
-          </div>
-        </div>
-
-        <!-- Highlights Stats Banner -->
-        <div class="hero-stats-banner">
-          <div class="stat-cell">
-            <span class="stat-number gradient-text">3+</span>
-            <span class="stat-desc">Proyectos Full Stack</span>
-          </div>
-          <div class="stat-separator"></div>
-          <div class="stat-cell">
-            <span class="stat-number gradient-text">10+</span>
-            <span class="stat-desc">Habilidades & Tecnologías</span>
-          </div>
-          <div class="stat-separator"></div>
-          <div class="stat-cell">
-            <span class="stat-number gradient-text">KINAL / UMG</span>
-            <span class="stat-desc">Formación Técnica & Univ.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column: Interactive Code Profile Widget -->
-      <div class="hero-visual">
-        <div class="code-window card card-glow-hover">
-          <!-- Window Header (macOS style) -->
-          <div class="window-header">
-            <div class="window-dots">
-              <span class="window-dot dot-red"></span>
-              <span class="window-dot dot-yellow"></span>
-              <span class="window-dot dot-green"></span>
-            </div>
-            <div class="window-tab">
-              <FileCode2 :size="14" class="tab-icon-file" />
-              <span>ricardo.config.ts</span>
-            </div>
-            <button
-              type="button"
-              class="copy-code-btn"
-              :title="codeCopied ? '¡Copiado!' : 'Copiar snippet'"
-              @click="copyProfileCode"
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center gap-3.5 mb-8 w-full sm:w-auto">
+            <a
+              href="#proyectos"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-indigo-600 via-indigo-700 to-cyan-600 hover:opacity-95 shadow-lg shadow-indigo-500/25 transition-all transform hover:-translate-y-0.5"
             >
-              <template v-if="codeCopied">
-                <Check :size="13" class="copied-check" />
-                <span class="copied-text">Copiado</span>
-              </template>
-              <template v-else>
-                <Copy :size="13" />
-                <span>Copiar</span>
-              </template>
-            </button>
+              <span>Explorar Proyectos</span>
+              <ArrowRight :size="16" />
+            </a>
+
+            <a
+              href="#contacto"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-zinc-800 dark:text-zinc-200 bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 border border-zinc-200 dark:border-white/10 transition-all transform hover:-translate-y-0.5"
+            >
+              <span>Contactar</span>
+              <Send :size="15" />
+            </a>
           </div>
 
-          <!-- Code Content -->
-          <div class="code-body">
-            <pre class="code-pre"><code><span class="token-keyword">const</span> <span class="token-def">developer</span>: <span class="token-type">FullStackDev</span> = {
-  <span class="token-prop">name</span>: <span class="token-string">'Ricardo Martín'</span>,
-  <span class="token-prop">role</span>: <span class="token-string">'Junior Full Stack Developer'</span>,
-  <span class="token-prop">stack</span>: [
-    <span class="token-string">'React'</span>, <span class="token-string">'Node.js'</span>, <span class="token-string">'Express'</span>,
-    <span class="token-string">'MongoDB'</span>, <span class="token-string">'SQL'</span>, <span class="token-string">'TypeScript'</span>
-  ],
-  <span class="token-prop">education</span>: {
-    <span class="token-prop">technical</span>: <span class="token-string">'KINAL (Perito Informática)'</span>,
-    <span class="token-prop">university</span>: <span class="token-string">'UMG (Ingeniería en Sistemas)'</span>
-  },
-  <span class="token-prop">focus</span>: <span class="token-string">'Clean Code & Responsive UI'</span>,
-  <span class="token-prop">available</span>: <span class="token-bool">true</span>
-};</code></pre>
-          </div>
+          <!-- Social Strip -->
+          <div class="flex flex-wrap items-center gap-2.5 mb-10 text-xs">
+            <a
+              :href="personal.github"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-white/10 border border-zinc-200 dark:border-white/10 transition-colors"
+            >
+              <Github :size="14" />
+              <span>GitHub</span>
+            </a>
 
-          <!-- Floating Badge -->
-          <div class="floating-tech-badge animate-float">
-            <div class="badge-icon">
-              <Sparkles :size="20" class="sparkle-svg" />
+            <a
+              :href="personal.linkedin"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-white/10 border border-zinc-200 dark:border-white/10 transition-colors"
+            >
+              <Linkedin :size="14" />
+              <span>LinkedIn</span>
+            </a>
+
+            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-white/10 font-mono">
+              <span>{{ personal.email }}</span>
             </div>
-            <div class="badge-text">
-              <strong>100% Código Limpio</strong>
-              <span>Orientado a soluciones</span>
+          </div>
+
+          <!-- Proof Metrics Bar -->
+          <div class="w-full grid grid-cols-3 gap-4 pt-6 border-t border-zinc-200 dark:border-white/10">
+            <div>
+              <div class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">
+                3+
+              </div>
+              <div class="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Proyectos Full Stack</div>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">
+                10+
+              </div>
+              <div class="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Habilidades Técnicas</div>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">
+                KINAL / UMG
+              </div>
+              <div class="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Educación & Formación</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Code Terminal Card -->
+        <div class="lg:col-span-5">
+          <div class="relative group">
+            <!-- Glow background effect -->
+            <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-cyan-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition duration-500"></div>
+
+            <div class="relative bg-white dark:bg-[#0c1220] border border-zinc-200 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden backdrop-blur-md">
+              <!-- Window Header -->
+              <div class="px-4 py-3 bg-zinc-100/80 dark:bg-white/5 border-b border-zinc-200 dark:border-white/10 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                  <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                  <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                </div>
+
+                <div class="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 font-mono">
+                  <FileCode2 :size="13" />
+                  <span>ricardo.config.ts</span>
+                </div>
+
+                <!-- Copy Snippet Button -->
+                <button
+                  type="button"
+                  class="flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded bg-zinc-200/70 dark:bg-white/10 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-300 dark:hover:bg-white/20 transition-colors"
+                  :title="codeCopied ? 'Copiado al portapapeles' : 'Copiar código'"
+                  @click="copyProfileCode"
+                >
+                  <Check v-if="codeCopied" :size="12" class="text-emerald-500" />
+                  <Copy v-else :size="12" />
+                  <span>{{ codeCopied ? 'Copiado' : 'Copiar' }}</span>
+                </button>
+              </div>
+
+              <!-- Code Content -->
+              <div class="p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed overflow-x-auto text-zinc-800 dark:text-zinc-200">
+                <p><span class="text-purple-600 dark:text-purple-400 font-semibold">const</span> <span class="text-blue-600 dark:text-blue-400">developer</span> = {</p>
+                <p class="pl-4"><span class="text-zinc-500 dark:text-zinc-400">name:</span> <span class="text-emerald-600 dark:text-emerald-400">'{{ personal.name }}'</span>,</p>
+                <p class="pl-4"><span class="text-zinc-500 dark:text-zinc-400">role:</span> <span class="text-emerald-600 dark:text-emerald-400">'{{ personal.role }}'</span>,</p>
+                <p class="pl-4"><span class="text-zinc-500 dark:text-zinc-400">education:</span> [</p>
+                <p class="pl-8 text-zinc-600 dark:text-zinc-400"><span class="text-emerald-600 dark:text-emerald-400">'KINAL - Perito en Informática'</span>,</p>
+                <p class="pl-8 text-zinc-600 dark:text-zinc-400"><span class="text-emerald-600 dark:text-emerald-400">'UMG - Ingeniería en Sistemas'</span></p>
+                <p class="pl-4">],</p>
+                <p class="pl-4"><span class="text-zinc-500 dark:text-zinc-400">stack:</span> [</p>
+                <p class="pl-8 text-indigo-600 dark:text-indigo-400">'React', 'Node.js', 'Express', 'MongoDB', 'SQL'</p>
+                <p class="pl-4">],</p>
+                <p class="pl-4"><span class="text-zinc-500 dark:text-zinc-400">mindset:</span> <span class="text-amber-600 dark:text-amber-400">'Clean Code & Continuous Learning'</span>,</p>
+                <p class="pl-4"><span class="text-zinc-500 dark:text-zinc-400">available:</span> <span class="text-emerald-600 dark:text-emerald-400 font-bold">true</span></p>
+                <p>};</p>
+              </div>
+
+              <!-- Terminal Footer Bar -->
+              <div class="px-4 py-2 bg-zinc-50 dark:bg-black/20 border-t border-zinc-200 dark:border-white/5 flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400 font-mono">
+                <div class="flex items-center gap-1.5">
+                  <Terminal :size="12" class="text-indigo-500" />
+                  <span>TypeScript 5.7 • Node.js</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>En línea</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -178,317 +211,3 @@ const copyProfileCode = async () => {
     </div>
   </section>
 </template>
-
-<style scoped>
-.hero-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 8.5rem 0 5rem;
-  position: relative;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 3.5rem;
-  align-items: center;
-}
-
-/* Left Column */
-.hero-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.hero-status-wrap {
-  margin-bottom: 1.5rem;
-}
-
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.4rem 1rem;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-xs);
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 10px #10b981;
-  animation: pulseDot 2s infinite ease-in-out;
-}
-
-.status-text {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: 0.02em;
-}
-
-.hero-headline {
-  font-size: 3.25rem;
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.035em;
-  margin-bottom: 1.25rem;
-}
-
-.hero-subheading {
-  font-size: 1.125rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  margin-bottom: 2.25rem;
-  max-width: 580px;
-}
-
-.text-highlight {
-  color: var(--text-primary);
-  font-weight: 700;
-}
-
-.hero-cta-group {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
-}
-
-/* Social Strip */
-.hero-social-strip {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 2.5rem;
-}
-
-.social-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.9rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  transition: all var(--transition-fast);
-}
-
-.social-chip:hover {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-xs);
-}
-
-.email-chip {
-  color: var(--text-muted);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-}
-
-/* Stats Banner */
-.hero-stats-banner {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.25rem 1.5rem;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xs);
-  max-width: fit-content;
-}
-
-.stat-cell {
-  display: flex;
-  flex-direction: column;
-}
-
-.stat-number {
-  font-size: 1.35rem;
-  font-weight: 800;
-  line-height: 1.1;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.stat-desc {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.stat-separator {
-  width: 1px;
-  height: 32px;
-  background: var(--border-subtle);
-}
-
-/* Right Column: Code Window */
-.hero-visual {
-  position: relative;
-}
-
-.code-window {
-  padding: 0;
-  overflow: hidden;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
-}
-
-.window-tab {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8125rem;
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.tab-icon-file {
-  color: var(--accent-primary);
-}
-
-.copy-code-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 0.3rem 0.6rem;
-  border-radius: var(--radius-xs);
-  transition: all var(--transition-fast);
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.75rem;
-}
-
-.copy-code-btn:hover {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.copied-check {
-  color: #10b981;
-}
-
-.copied-text {
-  color: #10b981;
-  font-weight: 600;
-}
-
-.code-body {
-  padding: 1.5rem;
-  background: rgba(0, 0, 0, 0.35);
-}
-
-.code-pre {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.875rem;
-  line-height: 1.7;
-  color: #e2e8f0;
-  overflow-x: auto;
-}
-
-/* Syntax Highlighting */
-.token-keyword { color: #f43f5e; font-weight: 600; }
-.token-def { color: #38bdf8; font-weight: 600; }
-.token-type { color: #a855f7; }
-.token-prop { color: #94a3b8; }
-.token-string { color: #34d399; }
-.token-bool { color: #fbbf24; }
-
-/* Floating Tech Badge */
-.floating-tech-badge {
-  position: absolute;
-  bottom: -1rem;
-  right: -1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.25rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-hover);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg), 0 0 25px -5px rgba(99, 102, 241, 0.3);
-}
-
-.badge-icon {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--gradient-brand);
-  border-radius: var(--radius-md);
-  color: #ffffff;
-}
-
-.sparkle-svg {
-  color: #ffffff;
-}
-
-.badge-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.badge-text strong {
-  font-size: 0.8125rem;
-  color: var(--text-primary);
-}
-
-.badge-text span {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  .hero-headline {
-    font-size: 2.75rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .hero-headline {
-    font-size: 2.15rem;
-  }
-  .hero-cta-group {
-    flex-direction: column;
-  }
-  .hero-cta-group .btn {
-    width: 100%;
-  }
-  .hero-stats-banner {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    max-width: none;
-    gap: 1rem;
-  }
-  .stat-separator {
-    display: none;
-  }
-  .floating-tech-badge {
-    position: static;
-    margin-top: 1rem;
-  }
-}
-</style>

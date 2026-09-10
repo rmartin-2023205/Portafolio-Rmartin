@@ -1,256 +1,114 @@
 <script setup lang="ts">
 import {
+  FolderGit2,
+  Github,
+  ExternalLink,
+  ChevronRight,
   Armchair,
   Globe,
   MessageSquare,
-  Github,
-  ArrowUpRight,
-  FolderGit2
+  Layers
 } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
-const { projects } = portfolioData
-
 const getProjectIcon = (iconName: string) => {
   switch (iconName) {
+    case 'Armchair':
+      return Armchair
     case 'Globe':
       return Globe
     case 'MessageSquare':
       return MessageSquare
-    case 'Armchair':
     default:
-      return Armchair
+      return Layers
   }
 }
 </script>
 
 <template>
-  <section id="proyectos" class="section projects-section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge">Trabajo Destacado</span>
-        <h2 class="section-title">Proyectos & Aplicaciones</h2>
-        <p class="section-subtitle">
-          Soluciones de software desarrolladas con arquitecturas modernas, bases de datos no relacionales y REST APIs.
+  <section id="proyectos" class="py-20 md:py-28 relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- Section Header -->
+      <div class="mb-12 md:mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 mb-3">
+          <FolderGit2 :size="13" />
+          <span>Trabajo Destacado</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+          Proyectos Realizados
+        </h2>
+        <p class="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base mt-2 max-w-2xl">
+          Aplicaciones completas con frontend interactivo, arquitecturas backend y bases de datos reales.
         </p>
       </div>
 
-      <div class="projects-grid">
-        <article
-          v-for="project in projects"
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          v-for="project in portfolioData.projects"
           :key="project.id"
-          class="project-card bento-card card-glow-hover"
+          class="bg-white dark:bg-[#0c1220] border border-zinc-200 dark:border-white/10 rounded-2xl shadow-sm hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 flex flex-col justify-between overflow-hidden group"
         >
-          <!-- Mockup Window Bar -->
-          <div class="window-header">
-            <div class="window-dots">
-              <span class="window-dot dot-red"></span>
-              <span class="window-dot dot-yellow"></span>
-              <span class="window-dot dot-green"></span>
+          <!-- App Window Header Mockup -->
+          <div class="px-4 py-2.5 bg-zinc-100/80 dark:bg-white/5 border-b border-zinc-200 dark:border-white/5 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
             </div>
-            <div class="window-slug">
-              <FolderGit2 :size="12" class="slug-icon" />
-              <span>{{ project.id }}.app</span>
-            </div>
-            <div class="window-spacer"></div>
+            <span class="text-[11px] font-mono text-zinc-400 dark:text-zinc-500">
+              {{ project.id }}.app
+            </span>
           </div>
 
-          <!-- Project Gradient Visual Banner with Lucide Icon -->
-          <div class="project-banner" :style="{ background: project.gradient }">
-            <div class="banner-overlay"></div>
-            <div class="project-icon-badge">
-              <component :is="getProjectIcon(project.icon)" :size="48" class="project-svg-icon" />
-            </div>
-          </div>
+          <!-- Project Body Content -->
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <!-- Icon & Title -->
+              <div class="flex items-center gap-3.5 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600/15 via-indigo-500/10 to-cyan-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 border border-indigo-500/20">
+                  <component :is="getProjectIcon(project.icon)" :size="24" />
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    {{ project.title }}
+                  </h3>
+                  <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Full Stack Project</span>
+                </div>
+              </div>
 
-          <!-- Project Details -->
-          <div class="project-body">
-            <h3 class="project-title">{{ project.title }}</h3>
-            <p class="project-description">{{ project.description }}</p>
-
-            <!-- Tech Badges -->
-            <div class="project-tags-wrap">
-              <span
-                v-for="tag in project.tags"
-                :key="tag"
-                class="tech-chip"
-              >
-                {{ tag }}
-              </span>
+              <!-- Description -->
+              <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+                {{ project.description }}
+              </p>
             </div>
 
-            <!-- Footer Action -->
-            <div class="project-actions">
+            <!-- Tech Tags & Action Button -->
+            <div>
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <span
+                  v-for="tag in project.tags"
+                  :key="tag"
+                  class="px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-zinc-100 dark:bg-white/5 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-white/5"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+
               <a
                 :href="project.githubUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn btn-secondary project-btn"
+                class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-100 dark:bg-white/5 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white border border-zinc-200 dark:border-white/10 transition-all duration-200 group/btn"
               >
-                <div class="btn-left">
-                  <Github :size="16" />
-                  <span>Código en GitHub</span>
-                </div>
-                <ArrowUpRight :size="15" class="btn-arrow" />
+                <Github :size="14" />
+                <span>Ver Código en GitHub</span>
+                <ChevronRight :size="14" class="group-hover/btn:translate-x-0.5 transition-transform" />
               </a>
             </div>
           </div>
-        </article>
+        </div>
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.projects-section {
-  padding: 6rem 0;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2.25rem;
-}
-
-.project-card {
-  padding: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--radius-xl);
-}
-
-.window-slug {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.slug-icon {
-  color: var(--accent-primary);
-}
-
-.window-spacer {
-  width: 32px;
-}
-
-.project-banner {
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.banner-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 25%, rgba(0, 0, 0, 0.45) 100%);
-}
-
-.project-icon-badge {
-  width: 88px;
-  height: 88px;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-  position: relative;
-  z-index: 1;
-  transition: transform var(--transition-normal);
-}
-
-.project-card:hover .project-icon-badge {
-  transform: scale(1.1) rotate(4deg);
-}
-
-.project-svg-icon {
-  color: #ffffff;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
-}
-
-.project-body {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.project-title {
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.02em;
-}
-
-.project-description {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.65;
-  margin-bottom: 1.5rem;
-  flex: 1;
-}
-
-.project-tags-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.75rem;
-}
-
-.tech-chip {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.3rem 0.75rem;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  color: var(--text-secondary);
-  transition: all var(--transition-fast);
-}
-
-.tech-chip:hover {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-}
-
-.project-actions {
-  margin-top: auto;
-}
-
-.project-btn {
-  width: 100%;
-  justify-content: space-between;
-  padding: 0.8rem 1.25rem;
-}
-
-.btn-left {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.btn-arrow {
-  transition: transform var(--transition-fast);
-}
-
-.project-btn:hover .btn-arrow {
-  transform: translate(2px, -2px);
-}
-
-@media (max-width: 640px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

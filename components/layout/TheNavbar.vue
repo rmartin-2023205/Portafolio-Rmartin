@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Sun, Moon, Menu, X, ArrowUpRight, Sparkles } from 'lucide-vue-next'
+import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 import { useTheme } from '~/composables/useTheme'
 
@@ -18,7 +18,7 @@ const handleScroll = () => {
       const el = document.getElementById(sectionId)
       if (el) {
         const rect = el.getBoundingClientRect()
-        if (rect.top <= 140 && rect.bottom >= 140) {
+        if (rect.top <= 150 && rect.bottom >= 150) {
           activeSection.value = sectionId
           break
         }
@@ -46,342 +46,140 @@ onUnmounted(() => {
 
 <template>
   <header
-    class="navbar-wrapper"
-    :class="{ 'navbar-scrolled': isScrolled }"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4"
+    :class="isScrolled ? 'py-3' : 'py-5'"
   >
-    <div class="container navbar-container">
-      <div class="navbar-pill">
+    <div class="max-w-6xl mx-auto">
+      <div
+        class="backdrop-blur-xl border rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all duration-300"
+        :class="[
+          isScrolled
+            ? 'bg-white/85 dark:bg-[#090d16]/85 border-zinc-200 dark:border-white/10 shadow-lg shadow-black/5 dark:shadow-black/40'
+            : 'bg-white/60 dark:bg-[#090d16]/60 border-zinc-200/60 dark:border-white/5 shadow-sm'
+        ]"
+      >
         <!-- Logo -->
-        <a href="#inicio" class="navbar-logo" @click="closeMenu">
-          <div class="logo-badge">
-            <span>RM</span>
+        <a href="#inicio" class="flex items-center gap-2.5 group" @click="closeMenu">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xs tracking-wider shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+            RM
           </div>
-          <div class="logo-text-group">
-            <span class="logo-name">{{ portfolioData.personal.name }}</span>
-            <span class="logo-tag">Dev</span>
+          <div class="flex items-center gap-1.5">
+            <span class="font-bold text-sm tracking-tight text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+              {{ portfolioData.personal.name }}
+            </span>
+            <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-white/10 text-zinc-600 dark:text-zinc-400 font-semibold">
+              Dev
+            </span>
           </div>
         </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="navbar-nav" aria-label="Navegación principal">
-          <ul class="nav-list">
-            <li v-for="item in portfolioData.navigation" :key="item.href">
-              <a
-                :href="item.href"
-                class="nav-link"
-                :class="{ active: activeSection === item.href.replace('#', '') }"
-              >
-                {{ item.name }}
-              </a>
-            </li>
-          </ul>
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-1" aria-label="Navegación principal">
+          <a
+            v-for="item in portfolioData.navigation"
+            :key="item.href"
+            :href="item.href"
+            class="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
+            :class="[
+              activeSection === item.href.replace('#', '')
+                ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 font-semibold shadow-xs'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5'
+            ]"
+          >
+            {{ item.name }}
+          </a>
         </nav>
 
-        <!-- Right Controls -->
-        <div class="navbar-actions">
+        <!-- Right Actions -->
+        <div class="flex items-center gap-2">
           <!-- Theme Switcher -->
           <button
             type="button"
-            class="theme-btn"
+            class="w-8 h-8 rounded-full flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors"
             :aria-label="isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
-            :title="isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
             @click="toggleTheme"
           >
-            <Sun v-if="isDark" :size="17" class="theme-icon-lucide" />
-            <Moon v-else :size="17" class="theme-icon-lucide" />
+            <Sun v-if="isDark" :size="16" class="transition-transform hover:rotate-45" />
+            <Moon v-else :size="16" class="transition-transform hover:-rotate-12" />
           </button>
 
           <!-- Contact Quick CTA -->
-          <a href="#contacto" class="btn btn-primary btn-nav-cta">
+          <a
+            href="#contacto"
+            class="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 via-indigo-700 to-cyan-600 hover:opacity-95 shadow-md shadow-indigo-500/20 transition-all transform hover:-translate-y-0.5"
+          >
             <span>Hablemos</span>
-            <ArrowUpRight :size="15" />
+            <ArrowUpRight :size="13" />
           </a>
 
           <!-- Mobile Hamburger -->
           <button
             type="button"
-            class="hamburger-btn"
-            :class="{ active: isMenuOpen }"
-            aria-label="Abrir menú de navegación"
-            :aria-expanded="isMenuOpen"
+            class="md:hidden w-8 h-8 rounded-full flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors"
+            :aria-label="isMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
             @click="toggleMenu"
           >
-            <X v-if="isMenuOpen" :size="20" />
-            <Menu v-else :size="20" />
+            <X v-if="isMenuOpen" :size="18" />
+            <Menu v-else :size="18" />
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Mobile Drawer -->
-    <transition name="fade">
-      <div v-if="isMenuOpen" class="mobile-overlay" @click="closeMenu"></div>
+    <!-- Mobile Drawer Overlay -->
+    <transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <div
+        v-if="isMenuOpen"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+        @click="closeMenu"
+      ></div>
     </transition>
-    <transition name="slide-down">
-      <div v-if="isMenuOpen" class="mobile-drawer">
-        <nav aria-label="Navegación móvil">
-          <ul class="mobile-nav-list">
-            <li v-for="item in portfolioData.navigation" :key="item.href">
-              <a
-                :href="item.href"
-                class="mobile-nav-link"
-                :class="{ active: activeSection === item.href.replace('#', '') }"
-                @click="closeMenu"
-              >
-                {{ item.name }}
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <div class="mobile-drawer-bottom">
-          <a href="#contacto" class="btn btn-primary" style="width: 100%;" @click="closeMenu">
-            <span>Iniciar Conversación</span>
-            <ArrowUpRight :size="16" />
+
+    <!-- Mobile Drawer Content -->
+    <transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0 -translate-y-4"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-4"
+    >
+      <div
+        v-if="isMenuOpen"
+        class="absolute top-full left-4 right-4 mt-2 p-4 bg-white dark:bg-[#0c1220] border border-zinc-200 dark:border-white/10 rounded-2xl shadow-xl z-50 md:hidden flex flex-col gap-1"
+      >
+        <a
+          v-for="item in portfolioData.navigation"
+          :key="item.href"
+          :href="item.href"
+          class="px-4 py-2.5 rounded-xl text-sm font-medium transition-colors"
+          :class="[
+            activeSection === item.href.replace('#', '')
+              ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 font-semibold'
+              : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-white/5'
+          ]"
+          @click="closeMenu"
+        >
+          {{ item.name }}
+        </a>
+
+        <div class="pt-3 mt-2 border-t border-zinc-200 dark:border-white/10 flex flex-col gap-2">
+          <a
+            href="#contacto"
+            class="w-full py-2.5 rounded-xl text-center text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm"
+            @click="closeMenu"
+          >
+            Contactar a Ricardo
           </a>
         </div>
       </div>
     </transition>
   </header>
 </template>
-
-<style scoped>
-.navbar-wrapper {
-  position: fixed;
-  top: 1rem;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  transition: all var(--transition-normal);
-}
-
-.navbar-container {
-  display: flex;
-  justify-content: center;
-}
-
-.navbar-pill {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 0.85rem 0.5rem 1rem;
-  background: var(--bg-surface-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-normal);
-}
-
-.navbar-scrolled .navbar-pill {
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-md), 0 0 25px -5px rgba(99, 102, 241, 0.2);
-}
-
-/* Logo */
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  text-decoration: none;
-}
-
-.logo-badge {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--gradient-brand);
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 0.9375rem;
-  border-radius: var(--radius-full);
-  box-shadow: 0 3px 12px rgba(79, 70, 229, 0.4);
-}
-
-.logo-text-group {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.logo-name {
-  font-weight: 700;
-  font-size: 1.0625rem;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-.logo-tag {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  padding: 0.15rem 0.45rem;
-  background: rgba(99, 102, 241, 0.12);
-  color: var(--accent-primary);
-  border-radius: var(--radius-full);
-  text-transform: uppercase;
-}
-
-/* Nav Links */
-.navbar-nav {
-  display: flex;
-}
-
-.nav-list {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  list-style: none;
-}
-
-.nav-link {
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  padding: 0.45rem 0.85rem;
-  border-radius: var(--radius-full);
-  transition: all var(--transition-fast);
-}
-
-.nav-link:hover {
-  color: var(--text-primary);
-  background: rgba(99, 102, 241, 0.08);
-}
-
-.nav-link.active {
-  color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.14);
-  font-weight: 600;
-}
-
-/* Actions */
-.navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.theme-btn {
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.theme-btn:hover {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  transform: rotate(15deg);
-}
-
-.theme-icon-lucide {
-  transition: transform var(--transition-fast);
-}
-
-.btn-nav-cta {
-  padding: 0.5rem 1.15rem;
-  font-size: 0.875rem;
-  border-radius: var(--radius-full);
-}
-
-/* Hamburger */
-.hamburger-btn {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  color: var(--text-primary);
-  cursor: pointer;
-}
-
-/* Mobile Drawer */
-.mobile-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(8px);
-  z-index: 45;
-}
-
-.mobile-drawer {
-  position: fixed;
-  top: 5rem;
-  left: 1.25rem;
-  right: 1.25rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xl);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-lg);
-  z-index: 50;
-}
-
-.mobile-nav-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.mobile-nav-link {
-  display: block;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  text-decoration: none;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
-}
-
-.mobile-nav-link:hover,
-.mobile-nav-link.active {
-  background: var(--bg-surface-elevated);
-  color: var(--accent-primary);
-}
-
-.mobile-drawer-bottom {
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
-
-.slide-down-enter-active, .slide-down-leave-active {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
-}
-.slide-down-enter-from, .slide-down-leave-to {
-  transform: translateY(-15px) scale(0.98);
-  opacity: 0;
-}
-
-@media (max-width: 992px) {
-  .navbar-nav,
-  .btn-nav-cta {
-    display: none;
-  }
-  .hamburger-btn {
-    display: flex;
-  }
-}
-</style>
