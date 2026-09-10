@@ -1,46 +1,84 @@
 <script setup lang="ts">
 import { portfolioData } from '~/data/portfolio'
 
-const { aboutParagraphs } = portfolioData.personal
+const { personal } = portfolioData
 </script>
 
 <template>
   <section id="sobre" class="section about-section">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">Perfil</span>
+        <span class="section-badge">Trayectoria & Enfoque</span>
         <h2 class="section-title">Sobre mí</h2>
-        <p class="section-subtitle">Conoce mi trayectoria, enfoque y filosofía de desarrollo.</p>
+        <p class="section-subtitle">
+          Perfil profesional, filosofía de desarrollo y vocación por la ingeniería de software.
+        </p>
       </div>
 
-      <div class="about-grid">
-        <div class="about-card card">
-          <div class="about-paragraphs">
-            <p v-for="(paragraph, index) in aboutParagraphs" :key="index" class="about-text">
+      <!-- Bento Grid Layout -->
+      <div class="about-bento-grid">
+        <!-- Main Story Tile (Spans 2 columns) -->
+        <div class="bento-card bento-main card-glow-hover">
+          <div class="bento-tag">
+            <span class="tag-icon">👨‍💻</span>
+            <span>Biografía Profesional</span>
+          </div>
+
+          <h3 class="bento-headline">
+            Pasión por la resolución de problemas y la ingeniería web
+          </h3>
+
+          <div class="story-paragraphs">
+            <p v-for="(paragraph, index) in personal.aboutParagraphs" :key="index" class="story-text">
               {{ paragraph }}
             </p>
           </div>
 
-          <div class="about-highlights">
-            <div class="highlight-item">
-              <span class="highlight-icon">⚡</span>
+          <div class="bento-footer-metrics">
+            <div class="metric-pill">
+              <span class="metric-icon">🚀</span>
+              <span class="metric-label">Full Stack Mindset</span>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-icon">✨</span>
+              <span class="metric-label">Clean Code First</span>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-icon">🌍</span>
+              <span class="metric-label">Open Source Ready</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Secondary Tile 1: Valores & Filosofía -->
+        <div class="bento-card bento-card-side card-glow-hover">
+          <div class="bento-tag">
+            <span class="tag-icon">🎯</span>
+            <span>Pilares de Trabajo</span>
+          </div>
+
+          <div class="pillars-list">
+            <div class="pillar-item">
+              <div class="pillar-icon">⚡</div>
               <div>
-                <h4>Aprendizaje Continuo</h4>
-                <p>Curiosidad constante por dominar nuevas herramientas y arquitecturas.</p>
+                <h4>Aprendizaje Ágil</h4>
+                <p>Capacidad para asimilar nuevos frameworks, librerías y estándares en tiempo récord.</p>
               </div>
             </div>
-            <div class="highlight-item">
-              <span class="highlight-icon">🤝</span>
+
+            <div class="pillar-item">
+              <div class="pillar-icon">🤝</div>
               <div>
-                <h4>Trabajo en Equipo</h4>
-                <p>Comunicación clara, empatía y colaboración en entornos ágiles.</p>
+                <h4>Colaboración Efectiva</h4>
+                <p>Comunicación transparente, sincronización con equipos de diseño y control de versiones ordenado.</p>
               </div>
             </div>
-            <div class="highlight-item">
-              <span class="highlight-icon">🎯</span>
+
+            <div class="pillar-item">
+              <div class="pillar-icon">💎</div>
               <div>
-                <h4>Calidad de Código</h4>
-                <p>Enfoque en código limpio, modular y mantenible a largo plazo.</p>
+                <h4>Calidad y Mantenibilidad</h4>
+                <p>Estructura modular, código limpio y buenas prácticas para proyectos que escalan con solidez.</p>
               </div>
             </div>
           </div>
@@ -52,79 +90,111 @@ const { aboutParagraphs } = portfolioData.personal
 
 <style scoped>
 .about-section {
-  padding: 5rem 0;
+  padding: 6rem 0;
 }
 
-.about-grid {
-  max-width: 960px;
-  margin: 0 auto;
+.about-bento-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 1.75rem;
 }
 
-.about-card {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  padding: 2.5rem;
+.bento-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary);
+  margin-bottom: 1.25rem;
 }
 
-.about-paragraphs {
+.bento-headline {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+}
+
+.story-paragraphs {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  margin-bottom: 2rem;
 }
 
-.about-text {
-  font-size: 1.0625rem;
+.story-text {
+  font-size: 1rem;
   line-height: 1.75;
   color: var(--text-secondary);
 }
 
-.about-highlights {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  padding-top: 2rem;
+.bento-footer-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--border-subtle);
 }
 
-.highlight-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+.metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
-.highlight-icon {
-  font-size: 1.75rem;
-  display: inline-block;
-  width: 44px;
-  height: 44px;
+/* Side Card */
+.pillars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pillar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.pillar-icon {
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
-.highlight-item h4 {
+.pillar-item h4 {
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: 0.25rem;
 }
 
-.highlight-item p {
+.pillar-item p {
   font-size: 0.875rem;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-@media (max-width: 768px) {
-  .about-card {
-    padding: 1.5rem;
-  }
-  .about-highlights {
+@media (max-width: 992px) {
+  .about-bento-grid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
   }
 }
 </style>
