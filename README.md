@@ -184,3 +184,12 @@ El proyecto utiliza Nitro, lo que permite despliegues automáticos con cero conf
 * **Email:** [martinricardo634@gmail.com](mailto:martinricardo634@gmail.com)
 * **GitHub:** [@rmartin-2023205](https://github.com/rmartin-2023205)
 * **LinkedIn:** [Ricardo Martín Quiché](https://www.linkedin.com/in/ricardo-martín-quiché-005768349)
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia **MIT** — consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+Copyright (c) 2026 **Ricardo Martín Quiché**.
+
