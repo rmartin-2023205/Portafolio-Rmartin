@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portafolio-ricardo-martin.vercel.app/sitemap.xml
