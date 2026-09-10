@@ -1,3 +1,4 @@
+// @ts-ignore: El paquete de Resend incluye soporte para React Email por defecto
 import { Resend } from 'resend'
 import { z } from 'zod'
 
