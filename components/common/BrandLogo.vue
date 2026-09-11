@@ -41,16 +41,11 @@ withDefaults(defineProps<Props>(), {
 
     <!-- Optional Identity Text -->
     <div v-if="showLabel" class="flex flex-col text-left">
-      <div class="flex items-center gap-1.5">
-        <span class="font-display font-bold text-xs uppercase tracking-technical text-swiss-text-primary dark:text-carbon-text-primary">
-          Ricardo Martín
-        </span>
-        <span class="font-mono text-[9px] px-1 py-0.2 bg-swiss-muted dark:bg-carbon-elevated text-swiss-text-primary dark:text-carbon-text-primary font-bold border border-swiss-border dark:border-carbon-border rounded-xs">
-          JR
-        </span>
-      </div>
-      <span class="font-mono text-[10px] text-swiss-text-secondary dark:text-carbon-text-secondary tracking-tight font-medium">
-        FULL STACK DEV
+      <span class="font-display font-bold text-xs uppercase tracking-technical text-swiss-text-primary dark:text-carbon-text-primary">
+        Ricardo Martín
+      </span>
+      <span class="font-sans text-[11px] text-swiss-text-secondary dark:text-carbon-text-secondary tracking-tight font-medium">
+        Desarrollador Full Stack
       </span>
     </div>
   </div>

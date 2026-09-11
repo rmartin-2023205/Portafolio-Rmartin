@@ -80,13 +80,13 @@ const getSkillDetail = (name: string): string => {
       </div>
 
       <!-- Technical Filter Tabs -->
-      <div class="flex flex-wrap items-center gap-2 mb-8 font-mono text-xs" role="group" aria-label="Filtro de habilidades por categoría">
+      <div class="flex flex-wrap items-center gap-2 mb-6 sm:mb-8 font-mono text-xs" role="group" aria-label="Filtro de habilidades por categoría">
         <button
           v-for="cat in categories"
           :key="cat.id"
           type="button"
           :aria-pressed="activeCategory === cat.id"
-          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xs border transition-colors cursor-pointer"
+          class="inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 sm:py-1.5 rounded-xs border transition-colors cursor-pointer min-h-[40px] sm:min-h-[36px] text-xs"
           :class="[
             activeCategory === cat.id
               ? 'bg-swiss-text-primary text-swiss-bg dark:bg-carbon-text-primary dark:text-carbon-bg border-swiss-text-primary dark:border-carbon-text-primary font-bold'
@@ -105,16 +105,16 @@ const getSkillDetail = (name: string): string => {
       </div>
 
       <!-- Skills Grid (Qualitative Cards, Zero Percentage Bars) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
         <div
           v-for="skill in filteredSkills"
           :key="skill.name"
-          class="bg-swiss-surface dark:bg-carbon-card border border-swiss-border dark:border-carbon-border rounded-sm p-5 shadow-swiss-xs hover:border-accent-light dark:hover:border-accent-light transition-colors group"
+          class="bg-swiss-surface dark:bg-carbon-card border border-swiss-border dark:border-carbon-border rounded-sm p-4 sm:p-5 shadow-swiss-xs hover:border-accent-light dark:hover:border-accent-light transition-colors group"
         >
           <!-- Skill Top Line: Name + Qualitative Level Badge -->
-          <div class="flex items-center justify-between gap-3 mb-2">
+          <div class="flex items-center justify-between gap-2 sm:gap-3 mb-2 flex-wrap sm:flex-nowrap">
             <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-none bg-accent-light"></span>
+              <span class="w-1.5 h-1.5 rounded-none bg-accent-light shrink-0"></span>
               <h3 class="font-display font-bold text-sm text-swiss-text-primary dark:text-carbon-text-primary group-hover:text-accent-light transition-colors">
                 {{ skill.name }}
               </h3>
@@ -122,7 +122,7 @@ const getSkillDetail = (name: string): string => {
 
             <!-- Qualitative Badge (No percentage numbers) -->
             <span
-              class="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-xs border uppercase tracking-wider"
+              class="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-xs border uppercase tracking-wider shrink-0"
               :class="[
                 skill.level === 'Avanzado'
                   ? 'bg-swiss-muted dark:bg-carbon-surface text-swiss-text-primary dark:text-carbon-text-primary border-swiss-border dark:border-carbon-border'

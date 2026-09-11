@@ -95,19 +95,33 @@ export default defineEventHandler(async (event) => {
     const resend = new Resend(apiKey)
 
     const emailHtml = `
-      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #1e293b; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
-        <h2 style="color: #4f46e5; margin-top: 0;">Nuevo mensaje desde tu Portafolio Web</h2>
-        <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-          <p style="margin: 0 0 10px 0;"><strong>Nombre:</strong> ${escapeHtml(nombre)}</p>
-          <p style="margin: 0 0 10px 0;"><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
-          <p style="margin: 0;"><strong>Fecha:</strong> ${new Date().toLocaleString('es-GT', { timeZone: 'America/Guatemala' })}</p>
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #09090b; max-width: 580px; margin: 0 auto; padding: 28px 24px; border: 1px solid #e5e7eb; border-top: 3px solid #ea580c; border-radius: 4px; background-color: #ffffff;">
+        <div style="margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 14px;">
+          <span style="font-family: monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #ea580c; text-transform: uppercase;">CONTACT.SYS // PORTAFOLIO</span>
+          <h2 style="font-size: 20px; font-weight: 800; color: #09090b; margin: 6px 0 0 0; letter-spacing: -0.02em;">Nuevo mensaje recibido</h2>
         </div>
-        <h3 style="color: #334155; margin-bottom: 10px;">Mensaje:</h3>
-        <div style="white-space: pre-wrap; background-color: #ffffff; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 15px;">
-          ${escapeHtml(mensaje)}
+
+        <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 4px; padding: 14px 16px; margin-bottom: 20px; font-size: 13px;">
+          <p style="margin: 0 0 8px 0;"><strong style="color: #52525b; text-transform: uppercase; font-family: monospace; font-size: 11px;">Remitente:</strong> <span style="color: #09090b; font-weight: 600;">${escapeHtml(nombre)}</span></p>
+          <p style="margin: 0 0 8px 0;"><strong style="color: #52525b; text-transform: uppercase; font-family: monospace; font-size: 11px;">Correo:</strong> <a href="mailto:${escapeHtml(email)}" style="color: #ea580c; text-decoration: none; font-weight: 600;">${escapeHtml(email)}</a></p>
+          <p style="margin: 0;"><strong style="color: #52525b; text-transform: uppercase; font-family: monospace; font-size: 11px;">Fecha / Hora:</strong> <span style="color: #52525b;">${new Date().toLocaleString('es-GT', { timeZone: 'America/Guatemala' })} (GMT-6)</span></p>
         </div>
-        <footer style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b; text-align: center;">
-          Portafolio de Ricardo Martín Quiché — Desarrollado con Nuxt 3 & Nitro
+
+        <div style="margin-bottom: 24px;">
+          <span style="font-family: monospace; font-size: 11px; font-weight: 700; color: #52525b; text-transform: uppercase;">Contenido del mensaje:</span>
+          <div style="white-space: pre-wrap; background-color: #ffffff; padding: 16px; border: 1px solid #e5e7eb; border-radius: 4px; font-size: 14px; color: #09090b; margin-top: 6px; line-height: 1.7;">
+            ${escapeHtml(mensaje)}
+          </div>
+        </div>
+
+        <div style="margin-bottom: 24px; text-align: center;">
+          <a href="mailto:${escapeHtml(email)}?subject=Re: Consulta desde Portafolio Web" style="display: inline-block; background-color: #c2410c; color: #ffffff; padding: 10px 20px; font-size: 13px; font-weight: 600; text-decoration: none; border-radius: 4px;">
+            Responder directamente a ${escapeHtml(nombre)}
+          </a>
+        </div>
+
+        <footer style="padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 11px; color: #71717a; text-align: center; font-family: monospace;">
+          Ricardo Martín Quiché — Portafolio Full Stack | Nuxt 3 & Nitro
         </footer>
       </div>
     `
