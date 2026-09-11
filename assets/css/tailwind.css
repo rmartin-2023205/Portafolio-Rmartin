@@ -5,30 +5,53 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
   }
 
   body {
-    @apply bg-zinc-50 text-zinc-900 transition-colors duration-300 antialiased selection:bg-indigo-500/20 selection:text-indigo-600;
+    @apply bg-swiss-bg text-swiss-text-primary antialiased selection:bg-accent/15 selection:text-accent transition-colors duration-200;
   }
 
   html.dark body {
-    @apply bg-[#05070c] text-zinc-100 selection:bg-indigo-500/30 selection:text-indigo-300;
+    @apply bg-carbon-bg text-carbon-text-primary selection:bg-accent/25 selection:text-accent-light;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.025em;
   }
 }
 
 @layer utilities {
-  .bg-radial-grid {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 24px 24px;
+  /* Cuadrícula de precisión técnica suiza (CAD Grid de 32px sutil) */
+  .bg-cad-grid {
+    background-image: 
+      linear-gradient(to right, rgba(229, 231, 235, 0.6) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(229, 231, 235, 0.6) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 
-  .light .bg-radial-grid {
-    background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-    background-size: 24px 24px;
+  .dark .bg-cad-grid {
+    background-image: 
+      linear-gradient(to right, rgba(39, 39, 42, 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(39, 39, 42, 0.5) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 
-  .text-glow {
-    text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+  /* Marco de precisión técnica con esquinas CAD */
+  .cad-corner-marks {
+    position: relative;
+  }
+
+  .cad-corner-marks::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 6px;
+    height: 6px;
+    border-top: 1.5px solid #c2410c;
+    border-right: 1.5px solid #c2410c;
+    pointer-events: none;
   }
 }

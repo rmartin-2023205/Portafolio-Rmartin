@@ -2,112 +2,99 @@
 import {
   FolderGit2,
   Github,
-  ExternalLink,
-  ChevronRight,
-  Armchair,
-  Globe,
-  MessageSquare,
-  Layers
+  ArrowUpRight,
+  Code2
 } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
-
-const getProjectIcon = (iconName: string) => {
-  switch (iconName) {
-    case 'Armchair':
-      return Armchair
-    case 'Globe':
-      return Globe
-    case 'MessageSquare':
-      return MessageSquare
-    default:
-      return Layers
-  }
-}
+import ProjectMockup from '~/components/common/ProjectMockup.vue'
 </script>
 
 <template>
-  <section id="proyectos" class="py-20 md:py-28 relative">
+  <section id="proyectos" class="py-20 md:py-28 border-b border-swiss-border dark:border-carbon-border bg-swiss-bg dark:bg-carbon-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <!-- Section Header -->
-      <div class="mb-12 md:mb-16">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 mb-3">
-          <FolderGit2 :size="13" />
-          <span>Trabajo Destacado</span>
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
+        <div>
+          <!-- Technical Section Tag -->
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-xs font-mono text-xs uppercase tracking-technical text-accent-light bg-accent/5 border border-accent/20 mb-3">
+            <FolderGit2 :size="13" />
+            <span>01 // EVIDENCIA TÉCNICA</span>
+          </div>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-swiss-text-primary dark:text-carbon-text-primary">
+            Proyectos Realizados
+          </h2>
+          <p class="font-sans text-swiss-text-secondary dark:text-carbon-text-secondary text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
+            Aplicaciones completas con frontend interactivo, APIs estructuradas en backend y persistencia en bases de datos reales.
+          </p>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-          Proyectos Realizados
-        </h2>
-        <p class="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base mt-2 max-w-2xl">
-          Aplicaciones completas con frontend interactivo, arquitecturas backend y bases de datos reales.
-        </p>
+
+        <!-- Meta Count Indicator -->
+        <div class="font-mono text-xs text-swiss-text-muted dark:text-carbon-text-muted">
+          TOTAL_REPOS: <strong class="text-swiss-text-primary dark:text-carbon-text-primary font-bold">03</strong>
+        </div>
       </div>
 
-      <!-- Projects Grid -->
+      <!-- Projects Grid (3 Cards) -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div
+        <article
           v-for="project in portfolioData.projects"
           :key="project.id"
-          class="bg-white dark:bg-[#0c1220] border border-zinc-200 dark:border-white/10 rounded-2xl shadow-sm hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+          class="group bg-swiss-surface dark:bg-carbon-card border border-swiss-border dark:border-carbon-border rounded-sm overflow-hidden flex flex-col justify-between shadow-swiss-xs hover:border-accent-light dark:hover:border-accent-light transition-colors duration-200 cad-corner-marks"
         >
-          <!-- App Window Header Mockup -->
-          <div class="px-4 py-2.5 bg-zinc-100/80 dark:bg-white/5 border-b border-zinc-200 dark:border-white/5 flex items-center justify-between">
-            <div class="flex items-center gap-1.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
-            </div>
-            <span class="text-[11px] font-mono text-zinc-400 dark:text-zinc-500">
-              {{ project.id }}.app
-            </span>
-          </div>
+          <div>
+            <!-- Visual Mockup Container (16:10 Aspect Ratio) -->
+            <ProjectMockup
+              :image-url="project.imageUrl"
+              :title="project.title"
+              :project-id="project.id"
+              :tags="project.tags"
+            />
 
-          <!-- Project Body Content -->
-          <div class="p-6 flex-1 flex flex-col justify-between">
-            <div>
-              <!-- Icon & Title -->
-              <div class="flex items-center gap-3.5 mb-4">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600/15 via-indigo-500/10 to-cyan-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 border border-indigo-500/20">
-                  <component :is="getProjectIcon(project.icon)" :size="24" />
-                </div>
-                <div>
-                  <h3 class="text-lg font-bold text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                    {{ project.title }}
-                  </h3>
-                  <span class="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Full Stack Project</span>
-                </div>
-              </div>
-
-              <!-- Description -->
-              <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
-                {{ project.description }}
-              </p>
-            </div>
-
-            <!-- Tech Tags & Action Button -->
-            <div>
-              <div class="flex flex-wrap gap-1.5 mb-5">
-                <span
-                  v-for="tag in project.tags"
-                  :key="tag"
-                  class="px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-zinc-100 dark:bg-white/5 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-white/5"
-                >
-                  {{ tag }}
+            <!-- Card Content Body -->
+            <div class="p-5 sm:p-6">
+              <!-- Title & Category -->
+              <div class="flex items-start justify-between gap-3 mb-2.5">
+                <h3 class="font-display text-lg font-bold text-swiss-text-primary dark:text-carbon-text-primary group-hover:text-accent-light transition-colors">
+                  {{ project.title }}
+                </h3>
+                <span class="font-mono text-[10px] px-1.5 py-0.5 rounded-xs bg-swiss-muted dark:bg-carbon-surface text-swiss-text-muted dark:text-carbon-text-muted border border-swiss-border dark:border-carbon-border shrink-0">
+                  FULL STACK
                 </span>
               </div>
 
-              <a
-                :href="project.githubUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-100 dark:bg-white/5 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white border border-zinc-200 dark:border-white/10 transition-all duration-200 group/btn"
-              >
-                <Github :size="14" />
-                <span>Ver Código en GitHub</span>
-                <ChevronRight :size="14" class="group-hover/btn:translate-x-0.5 transition-transform" />
-              </a>
+              <!-- Project Narrative -->
+              <p class="font-sans text-xs sm:text-sm text-swiss-text-secondary dark:text-carbon-text-secondary leading-relaxed mb-5">
+                {{ project.description }}
+              </p>
             </div>
           </div>
-        </div>
+
+          <!-- Bottom Action Bar & Tags -->
+          <div class="p-5 sm:p-6 pt-0 mt-auto">
+            <!-- Tech Stack Tags -->
+            <div class="flex flex-wrap gap-1.5 mb-5">
+              <span
+                v-for="tag in project.tags"
+                :key="tag"
+                class="px-2 py-0.5 rounded-xs font-mono text-[10px] font-medium bg-swiss-ivory dark:bg-carbon-surface text-swiss-text-secondary dark:text-carbon-text-secondary border border-swiss-border dark:border-carbon-border"
+              >
+                {{ tag }}
+              </span>
+            </div>
+
+            <!-- GitHub Repository CTA Button -->
+            <a
+              :href="project.githubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-sm font-sans text-xs font-semibold text-swiss-text-primary dark:text-carbon-text-primary bg-swiss-ivory dark:bg-carbon-surface border border-swiss-border dark:border-carbon-border hover:border-accent-light hover:text-accent-light transition-colors shadow-swiss-xs"
+            >
+              <Github :size="14" />
+              <span>Ver Código en GitHub</span>
+              <ArrowUpRight :size="13" class="text-swiss-text-muted dark:text-carbon-text-muted group-hover:text-accent-light transition-colors" />
+            </a>
+          </div>
+        </article>
       </div>
     </div>
   </section>

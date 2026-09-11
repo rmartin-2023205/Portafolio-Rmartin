@@ -22,11 +22,11 @@ useSeoMeta({
 <template>
   <main id="main-content">
     <HeroSection />
-    <AboutSection />
-    <EducationSection />
-    <SkillsSection />
     <ProjectsSection />
+    <SkillsSection />
     <ExperienceSection />
+    <EducationSection />
+    <AboutSection />
     <ContactSection>
       <ContactForm />
     </ContactSection>

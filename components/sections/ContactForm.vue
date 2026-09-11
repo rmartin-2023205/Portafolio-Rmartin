@@ -4,14 +4,15 @@ import {
   CheckCircle2,
   AlertCircle,
   Send,
-  Loader2
+  Loader2,
+  RotateCcw
 } from 'lucide-vue-next'
 
 const form = reactive({
   nombre: '',
   email: '',
   mensaje: '',
-  website_hp: '' // Honeypot
+  website_hp: '' // Honeypot antispam
 })
 
 const errors = reactive({
@@ -77,7 +78,7 @@ const handleSubmit = async () => {
       form.website_hp = ''
     } else {
       status.value = 'error'
-      errorMessage.value = res.message || 'No se pudo enviar el mensaje.'
+      errorMessage.value = res.message || 'No se pudo procesar el mensaje.'
     }
   } catch (err: any) {
     status.value = 'error'
@@ -93,55 +94,61 @@ const resetStatus = () => {
 
 <template>
   <div>
-    <div class="mb-6">
-      <h3 class="text-lg font-bold text-zinc-900 dark:text-white">Envíame un mensaje directo</h3>
-      <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Completa los campos y te responderé en tu correo.</p>
+    <!-- Form Header -->
+    <div class="pb-4 mb-5 border-b border-swiss-border dark:border-carbon-border">
+      <h3 class="font-display font-bold text-base text-swiss-text-primary dark:text-carbon-text-primary">
+        Enviar Mensaje
+      </h3>
+      <p class="font-sans text-xs text-swiss-text-secondary dark:text-carbon-text-secondary mt-1">
+        Ingresa tus datos y te responderé directamente por correo electrónico.
+      </p>
     </div>
 
     <!-- Success Feedback Alert -->
-    <transition
-      enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0 -translate-y-2"
-      enter-to-class="opacity-100 translate-y-0"
+    <div
+      v-if="status === 'success'"
+      class="p-4 rounded-xs bg-swiss-ivory dark:bg-carbon-surface border border-swiss-border dark:border-carbon-border mb-6 flex items-start gap-3"
+      role="alert"
     >
-      <div v-if="status === 'success'" class="p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 mb-6 flex items-start gap-3.5">
-        <CheckCircle2 :size="24" class="text-emerald-500 shrink-0 mt-0.5" />
-        <div>
-          <h4 class="text-sm font-bold text-emerald-800 dark:text-emerald-300">¡Mensaje enviado con éxito!</h4>
-          <p class="text-xs text-emerald-700 dark:text-emerald-400 mt-1 leading-relaxed">
-            Gracias por contactarme. Ricardo Martín revisará tu mensaje y se comunicará contigo pronto.
-          </p>
-          <button
-            type="button"
-            class="mt-3 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
-            @click="resetStatus"
-          >
-            Redactar otro mensaje
-          </button>
-        </div>
+      <CheckCircle2 :size="20" class="text-accent-light shrink-0 mt-0.5" />
+      <div>
+        <h4 class="font-display font-bold text-xs uppercase tracking-wide text-swiss-text-primary dark:text-carbon-text-primary">
+          Mensaje enviado correctamente
+        </h4>
+        <p class="font-sans text-xs text-swiss-text-secondary dark:text-carbon-text-secondary mt-1 leading-relaxed">
+          Gracias por comunicarte. Ricardo Martín revisará tu solicitud y se pondrá en contacto contigo a la brevedad.
+        </p>
+        <button
+          type="button"
+          class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs font-mono text-xs font-semibold bg-swiss-surface dark:bg-carbon-card border border-swiss-border dark:border-carbon-border text-swiss-text-primary dark:text-carbon-text-primary hover:border-accent-light hover:text-accent-light transition-colors cursor-pointer"
+          @click="resetStatus"
+        >
+          <RotateCcw :size="12" />
+          <span>Redactar otro mensaje</span>
+        </button>
       </div>
-    </transition>
+    </div>
 
     <!-- Error Feedback Alert -->
-    <transition
-      enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0 -translate-y-2"
-      enter-to-class="opacity-100 translate-y-0"
+    <div
+      v-if="status === 'error'"
+      class="p-4 rounded-xs bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 mb-6 flex items-start gap-3"
+      role="alert"
     >
-      <div v-if="status === 'error'" class="p-5 rounded-xl bg-rose-500/10 border border-rose-500/20 mb-6 flex items-start gap-3.5">
-        <AlertCircle :size="24" class="text-rose-500 shrink-0 mt-0.5" />
-        <div>
-          <h4 class="text-sm font-bold text-rose-800 dark:text-rose-300">No se pudo procesar el envío</h4>
-          <p class="text-xs text-rose-700 dark:text-rose-400 mt-1 leading-relaxed">
-            {{ errorMessage }}
-          </p>
-        </div>
+      <AlertCircle :size="20" class="text-red-700 dark:text-red-400 shrink-0 mt-0.5" />
+      <div>
+        <h4 class="font-display font-bold text-xs uppercase tracking-wide text-red-900 dark:text-red-200">
+          Error en el envío
+        </h4>
+        <p class="font-sans text-xs text-red-700 dark:text-red-300 mt-1 leading-relaxed">
+          {{ errorMessage }}
+        </p>
       </div>
-    </transition>
+    </div>
 
-    <!-- The Form -->
+    <!-- Form Content -->
     <form v-if="status !== 'success'" class="space-y-4" @submit.prevent="handleSubmit" novalidate>
-      <!-- AntiSpam Honeypot Field (Invisible) -->
+      <!-- AntiSpam Honeypot Field -->
       <div class="sr-only" aria-hidden="true">
         <label for="website_hp">No llenar este campo</label>
         <input
@@ -154,61 +161,61 @@ const resetStatus = () => {
         />
       </div>
 
-      <!-- Nombre Completo -->
+      <!-- Nombre -->
       <div>
-        <label for="form-nombre" class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1.5">
-          Nombre completo *
+        <label for="form-nombre" class="block font-mono text-xs font-semibold text-swiss-text-primary dark:text-carbon-text-primary mb-1">
+          NOMBRE COMPLETO <span class="text-accent-light">*</span>
         </label>
         <input
           id="form-nombre"
           v-model="form.nombre"
           type="text"
-          class="w-full px-4 py-2.5 rounded-xl text-sm bg-zinc-50 dark:bg-white/5 border text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 transition-all"
+          class="w-full px-3 py-2 rounded-xs text-xs font-sans bg-swiss-ivory dark:bg-carbon-surface border text-swiss-text-primary dark:text-carbon-text-primary placeholder:text-swiss-text-muted dark:placeholder:text-carbon-text-muted focus:outline-none focus:border-accent-light focus:ring-1 focus:ring-accent-light transition-colors"
           :class="[
             errors.nombre
-              ? 'border-rose-500 focus:ring-rose-500/20 bg-rose-500/5'
-              : 'border-zinc-200 dark:border-white/10 focus:border-indigo-500 focus:ring-indigo-500/20'
+              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+              : 'border-swiss-border dark:border-carbon-border'
           ]"
           placeholder="Ej. Alexander Hamilton"
           :disabled="status === 'loading'"
           required
         />
-        <span v-if="errors.nombre" class="block text-[11px] font-medium text-rose-500 mt-1">
+        <span v-if="errors.nombre" class="block font-sans text-xs text-red-700 dark:text-red-400 mt-1 font-medium">
           {{ errors.nombre }}
         </span>
       </div>
 
-      <!-- Correo Electrónico -->
+      <!-- Email -->
       <div>
-        <label for="form-email" class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1.5">
-          Correo electrónico *
+        <label for="form-email" class="block font-mono text-xs font-semibold text-swiss-text-primary dark:text-carbon-text-primary mb-1">
+          CORREO ELECTRÓNICO <span class="text-accent-light">*</span>
         </label>
         <input
           id="form-email"
           v-model="form.email"
           type="email"
-          class="w-full px-4 py-2.5 rounded-xl text-sm bg-zinc-50 dark:bg-white/5 border text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 transition-all"
+          class="w-full px-3 py-2 rounded-xs text-xs font-sans bg-swiss-ivory dark:bg-carbon-surface border text-swiss-text-primary dark:text-carbon-text-primary placeholder:text-swiss-text-muted dark:placeholder:text-carbon-text-muted focus:outline-none focus:border-accent-light focus:ring-1 focus:ring-accent-light transition-colors"
           :class="[
             errors.email
-              ? 'border-rose-500 focus:ring-rose-500/20 bg-rose-500/5'
-              : 'border-zinc-200 dark:border-white/10 focus:border-indigo-500 focus:ring-indigo-500/20'
+              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+              : 'border-swiss-border dark:border-carbon-border'
           ]"
           placeholder="tu.correo@empresa.com"
           :disabled="status === 'loading'"
           required
         />
-        <span v-if="errors.email" class="block text-[11px] font-medium text-rose-500 mt-1">
+        <span v-if="errors.email" class="block font-sans text-xs text-red-700 dark:text-red-400 mt-1 font-medium">
           {{ errors.email }}
         </span>
       </div>
 
       <!-- Mensaje -->
       <div>
-        <div class="flex items-center justify-between mb-1.5">
-          <label for="form-mensaje" class="text-xs font-bold text-zinc-700 dark:text-zinc-300">
-            Tu mensaje *
+        <div class="flex items-center justify-between mb-1 font-mono text-xs">
+          <label for="form-mensaje" class="font-semibold text-swiss-text-primary dark:text-carbon-text-primary">
+            PROPUESTA / MENSAJE <span class="text-accent-light">*</span>
           </label>
-          <span class="text-[11px] font-mono text-zinc-400">
+          <span class="text-[10px] text-swiss-text-muted dark:text-carbon-text-muted">
             {{ form.mensaje.length }} / 3000
           </span>
         </div>
@@ -216,34 +223,34 @@ const resetStatus = () => {
           id="form-mensaje"
           v-model="form.mensaje"
           rows="4"
-          class="w-full px-4 py-2.5 rounded-xl text-sm bg-zinc-50 dark:bg-white/5 border text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 transition-all resize-y min-h-[110px]"
+          class="w-full px-3 py-2 rounded-xs text-xs font-sans bg-swiss-ivory dark:bg-carbon-surface border text-swiss-text-primary dark:text-carbon-text-primary placeholder:text-swiss-text-muted dark:placeholder:text-carbon-text-muted focus:outline-none focus:border-accent-light focus:ring-1 focus:ring-accent-light transition-colors resize-y min-h-[100px]"
           :class="[
             errors.mensaje
-              ? 'border-rose-500 focus:ring-rose-500/20 bg-rose-500/5'
-              : 'border-zinc-200 dark:border-white/10 focus:border-indigo-500 focus:ring-indigo-500/20'
+              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+              : 'border-swiss-border dark:border-carbon-border'
           ]"
-          placeholder="Cuéntame sobre tu propuesta laboral, proyecto o consulta..."
+          placeholder="Describe la oportunidad laboral, proyecto o consulta técnica..."
           :disabled="status === 'loading'"
           required
         ></textarea>
-        <span v-if="errors.mensaje" class="block text-[11px] font-medium text-rose-500 mt-1">
+        <span v-if="errors.mensaje" class="block font-sans text-xs text-red-700 dark:text-red-400 mt-1 font-medium">
           {{ errors.mensaje }}
         </span>
       </div>
 
-      <!-- Submit Button -->
+      <!-- Submit CTA Button (Accent Orange high-contrast 5.18:1) -->
       <button
         type="submit"
-        class="w-full py-3 px-6 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-indigo-600 via-indigo-700 to-cyan-600 hover:opacity-95 shadow-md shadow-indigo-500/20 transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+        class="w-full py-2.5 px-4 rounded-sm font-sans font-semibold text-xs text-white bg-accent hover:bg-accent-hover transition-colors shadow-swiss-xs disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
         :disabled="status === 'loading'"
       >
         <span v-if="status === 'loading'" class="inline-flex items-center gap-2">
-          <Loader2 :size="16" class="animate-spin" />
-          <span>Enviando mensaje...</span>
+          <Loader2 :size="14" class="animate-spin" />
+          <span>Procesando envío...</span>
         </span>
         <span v-else class="inline-flex items-center gap-2">
-          <span>Enviar mensaje</span>
-          <Send :size="15" />
+          <span>Enviar Mensaje</span>
+          <Send :size="13" />
         </span>
       </button>
     </form>

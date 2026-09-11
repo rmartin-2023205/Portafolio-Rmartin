@@ -26,8 +26,9 @@ export interface ProjectItem {
   tags: string[]
   githubUrl: string
   demoUrl?: string
-  gradient: string
-  icon: string
+  imageUrl?: string
+  gradient?: string
+  icon?: string
 }
 
 export interface ExperienceItem {

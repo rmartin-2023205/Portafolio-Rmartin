@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   telemetry: false,
 
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/fonts'],
 
   css: ['~/assets/css/tailwind.css'],
 
@@ -29,18 +29,20 @@ export default defineNuxtConfig({
         },
         { property: 'og:type', content: 'website' },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'theme-color', content: '#0f172a' }
+        { name: 'theme-color', content: '#0c0d0e' }
       ],
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap'
-        }
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
       ]
     }
+  },
+
+  fonts: {
+    families: [
+      { name: 'Space Grotesk', provider: 'google', weights: [500, 600, 700] },
+      { name: 'Inter', provider: 'google', weights: [400, 500, 600, 700] },
+      { name: 'Space Mono', provider: 'google', weights: [400, 700] }
+    ]
   },
 
   runtimeConfig: {

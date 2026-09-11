@@ -4,10 +4,10 @@ import {
   Github,
   Linkedin,
   Mail,
-  Heart,
   ArrowUp
 } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
+import BrandLogo from '~/components/common/BrandLogo.vue'
 
 const currentYear = computed(() => new Date().getFullYear())
 
@@ -19,76 +19,69 @@ const scrollToTop = () => {
 </script>
 
 <template>
-  <footer class="border-t border-zinc-200 dark:border-white/10 bg-white/50 dark:bg-[#06080d]/80 py-12 relative overflow-hidden">
+  <footer class="border-t border-swiss-border dark:border-carbon-border bg-swiss-ivory dark:bg-carbon-surface py-12 select-none">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <!-- Brand & Description -->
+        <!-- Brand & Details -->
         <div class="text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start gap-2.5 mb-2">
-            <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-600 to-cyan-400 flex items-center justify-center text-white font-bold text-xs">
-              RM
-            </div>
-            <span class="font-extrabold text-sm tracking-tight text-zinc-900 dark:text-white">
-              {{ portfolioData.personal.fullName }}
-            </span>
-          </div>
-          <p class="text-xs text-zinc-500 dark:text-zinc-400">
+          <BrandLogo size="md" :show-label="true" />
+          <p class="font-mono text-xs text-swiss-text-muted dark:text-carbon-text-muted mt-2">
             {{ portfolioData.personal.role }} • Guatemala (GMT-6)
           </p>
         </div>
 
-        <!-- Social Icons -->
-        <div class="flex items-center gap-3">
+        <!-- Social Action Buttons & Scroll to Top -->
+        <div class="flex items-center gap-2 font-mono text-xs">
           <a
             :href="portfolioData.personal.github"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-9 h-9 rounded-xl bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 text-zinc-700 dark:text-zinc-300 flex items-center justify-center transition-colors border border-zinc-200/60 dark:border-white/5"
+            class="w-8 h-8 rounded-xs bg-swiss-bg dark:bg-carbon-card border border-swiss-border dark:border-carbon-border text-swiss-text-secondary dark:text-carbon-text-secondary hover:border-accent-light hover:text-accent-light flex items-center justify-center transition-colors shadow-swiss-xs"
             aria-label="GitHub"
           >
-            <Github :size="16" />
+            <Github :size="15" />
           </a>
 
           <a
             :href="portfolioData.personal.linkedin"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-9 h-9 rounded-xl bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 text-zinc-700 dark:text-zinc-300 flex items-center justify-center transition-colors border border-zinc-200/60 dark:border-white/5"
+            class="w-8 h-8 rounded-xs bg-swiss-bg dark:bg-carbon-card border border-swiss-border dark:border-carbon-border text-swiss-text-secondary dark:text-carbon-text-secondary hover:border-accent-light hover:text-accent-light flex items-center justify-center transition-colors shadow-swiss-xs"
             aria-label="LinkedIn"
           >
-            <Linkedin :size="16" />
+            <Linkedin :size="15" />
           </a>
 
           <a
             :href="`mailto:${portfolioData.personal.email}`"
-            class="w-9 h-9 rounded-xl bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 text-zinc-700 dark:text-zinc-300 flex items-center justify-center transition-colors border border-zinc-200/60 dark:border-white/5"
+            class="w-8 h-8 rounded-xs bg-swiss-bg dark:bg-carbon-card border border-swiss-border dark:border-carbon-border text-swiss-text-secondary dark:text-carbon-text-secondary hover:border-accent-light hover:text-accent-light flex items-center justify-center transition-colors shadow-swiss-xs"
             aria-label="Email"
           >
-            <Mail :size="16" />
+            <Mail :size="15" />
           </a>
 
           <button
             type="button"
-            class="w-9 h-9 rounded-xl bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 text-zinc-700 dark:text-zinc-300 flex items-center justify-center transition-colors border border-zinc-200/60 dark:border-white/5 cursor-pointer ml-2"
+            class="w-8 h-8 rounded-xs bg-swiss-bg dark:bg-carbon-card border border-swiss-border dark:border-carbon-border text-swiss-text-secondary dark:text-carbon-text-secondary hover:border-accent-light hover:text-accent-light flex items-center justify-center transition-colors shadow-swiss-xs cursor-pointer ml-2"
             aria-label="Volver arriba"
-            title="Volver arriba"
+            title="Volver al inicio"
             @click="scrollToTop"
           >
-            <ArrowUp :size="16" />
+            <ArrowUp :size="15" />
           </button>
         </div>
       </div>
 
-      <!-- Copyright Bottom Bar -->
-      <div class="mt-8 pt-6 border-t border-zinc-200/60 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+      <!-- Copyright & Stack Spec -->
+      <div class="mt-8 pt-6 border-t border-swiss-border/60 dark:border-carbon-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-swiss-text-muted dark:text-carbon-text-muted">
         <div>
           © {{ currentYear }} {{ portfolioData.personal.fullName }}. Todos los derechos reservados.
         </div>
-        <div class="flex items-center gap-1.5 font-mono text-[11px]">
-          <span>Construido con</span>
-          <span class="text-indigo-600 dark:text-indigo-400 font-semibold">Nuxt 3</span>
-          <span>&</span>
-          <span class="text-cyan-600 dark:text-cyan-400 font-semibold">Tailwind CSS</span>
+        <div class="flex items-center gap-1.5 text-[11px]">
+          <span>ARQ:</span>
+          <span class="text-swiss-text-primary dark:text-carbon-text-primary font-bold">NUXT 3</span>
+          <span>//</span>
+          <span class="text-accent-light font-bold">SWISS TECHNICAL DESIGN</span>
         </div>
       </div>
     </div>

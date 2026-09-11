@@ -2,121 +2,149 @@
 import { ref, computed } from 'vue'
 import {
   Code2,
-  Layers,
+  Terminal,
   Database,
-  Wrench
+  Cpu,
+  Layers,
+  Wrench,
+  CheckCircle2
 } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
 
 const { skills } = portfolioData
-const activeCategory = ref('Todos')
+const activeCategory = ref<'Todos' | 'Frontend' | 'Backend' | 'Tools & Design'>('Todos')
 
 const categories = [
-  { id: 'Todos', label: 'Todos', icon: Layers },
-  { id: 'Frontend', label: 'Frontend', icon: Code2 },
-  { id: 'Backend', label: 'Backend', icon: Database },
-  { id: 'Tools & Design', label: 'Tools & Design', icon: Wrench }
+  { id: 'Todos' as const, label: 'Todos los dominios', count: skills.length },
+  { id: 'Frontend' as const, label: 'Frontend & UI', count: skills.filter(s => s.category === 'Frontend').length },
+  { id: 'Backend' as const, label: 'Backend & Bases de Datos', count: skills.filter(s => s.category === 'Backend').length },
+  { id: 'Tools & Design' as const, label: 'Herramientas & Flujo', count: skills.filter(s => s.category === 'Tools & Design').length }
 ]
 
 const filteredSkills = computed(() => {
-  if (activeCategory.value === 'Todos') {
-    return skills
-  }
+  if (activeCategory.value === 'Todos') return skills
   return skills.filter((s) => s.category === activeCategory.value)
 })
 
-const getCategoryCount = (category: string) => {
-  if (category === 'Todos') return skills.length
-  return skills.filter((s) => s.category === category).length
-}
-
-const getLevelBadgeClass = (level: string) => {
-  switch (level) {
-    case 'Avanzado':
-      return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
-    case 'Intermedio':
-      return 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20'
+const getSkillDetail = (name: string): string => {
+  switch (name) {
+    case 'HTML5':
+      return 'Semántica web accesible, SEO técnico y estructura de documentos.'
+    case 'CSS3 & Flexbox':
+      return 'Maquetación responsiva moderna, Grid, animaciones fluidas y Tailwind CSS.'
+    case 'JavaScript':
+      return 'ES6+, manipulación del DOM, asincronía (Promises/Async-Await) y modularidad.'
+    case 'React':
+      return 'Componentes funcionales, custom hooks, gestión de estado y consumo de APIs.'
+    case 'Node.js & Express':
+      return 'Servidores HTTP, middlewares, enrutamiento modular y manejo de errores.'
+    case 'SQL & Bases de Datos':
+      return 'Modelado relacional y NoSQL con MongoDB; consultas, índices y CRUD.'
+    case 'Git & GitHub':
+      return 'Control de versiones, flujos de ramas (Git Flow), pull requests y colaboración.'
+    case 'Responsive Design':
+      return 'Estrategia mobile-first, media queries y adaptación multiplataforma.'
+    case 'REST APIs':
+      return 'Endpoints estructurados, códigos de estado HTTP y serialización JSON.'
+    case 'Figma & Diseño UI/UX':
+      return 'Interpretación de wireframes, design systems y prototipado visual.'
     default:
-      return 'bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 border-zinc-500/20'
+      return 'Implementación técnica en proyectos de desarrollo.'
   }
 }
 </script>
 
 <template>
-  <section id="habilidades" class="py-20 md:py-28 relative">
+  <section id="habilidades" class="py-20 md:py-28 border-b border-swiss-border dark:border-carbon-border bg-swiss-bg dark:bg-carbon-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <!-- Section Header -->
-      <div class="mb-10 md:mb-14">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 mb-3">
-          <Code2 :size="13" />
-          <span>Stack Técnico</span>
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
+        <div>
+          <!-- Section Tag -->
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-xs font-mono text-xs uppercase tracking-technical text-accent-light bg-accent/5 border border-accent/20 mb-3">
+            <Cpu :size="13" />
+            <span>02 // CAPACIDAD TÉCNICA</span>
+          </div>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-swiss-text-primary dark:text-carbon-text-primary">
+            Competencias y Tecnologías
+          </h2>
+          <p class="font-sans text-swiss-text-secondary dark:text-carbon-text-secondary text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
+            Evaluación cualitativa de las herramientas con las que resuelvo requerimientos reales, sin métricas porcentuales subjetivas.
+          </p>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-          Habilidades y Tecnologías
-        </h2>
-        <p class="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base mt-2 max-w-2xl">
-          Herramientas, frameworks y tecnologías con las que construyo soluciones web diariamente.
-        </p>
+
+        <!-- Meta Summary -->
+        <div class="font-mono text-xs text-swiss-text-muted dark:text-carbon-text-muted">
+          STACK_VERSION: <strong class="text-swiss-text-primary dark:text-carbon-text-primary font-bold">2026.1</strong>
+        </div>
       </div>
 
-      <!-- Filter Tabs -->
-      <div class="flex flex-wrap items-center gap-2 mb-8">
+      <!-- Technical Filter Tabs -->
+      <div class="flex flex-wrap items-center gap-2 mb-8 font-mono text-xs" role="group" aria-label="Filtro de habilidades por categoría">
         <button
           v-for="cat in categories"
           :key="cat.id"
           type="button"
-          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer"
+          :aria-pressed="activeCategory === cat.id"
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xs border transition-colors cursor-pointer"
           :class="[
             activeCategory === cat.id
-              ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20 scale-102'
-              : 'bg-zinc-100 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-white/10'
+              ? 'bg-swiss-text-primary text-swiss-bg dark:bg-carbon-text-primary dark:text-carbon-bg border-swiss-text-primary dark:border-carbon-text-primary font-bold'
+              : 'bg-swiss-ivory dark:bg-carbon-card border-swiss-border dark:border-carbon-border text-swiss-text-secondary dark:text-carbon-text-secondary hover:border-accent-light hover:text-swiss-text-primary dark:hover:text-carbon-text-primary'
           ]"
           @click="activeCategory = cat.id"
         >
-          <component :is="cat.icon" :size="14" />
           <span>{{ cat.label }}</span>
           <span
-            class="ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-mono"
-            :class="activeCategory === cat.id ? 'bg-white/20 text-white' : 'bg-zinc-200 dark:bg-white/10 text-zinc-500 dark:text-zinc-400'"
+            class="px-1.5 py-0.2 rounded-xs text-[10px] font-mono font-bold"
+            :class="activeCategory === cat.id ? 'bg-accent text-white' : 'bg-swiss-muted dark:bg-carbon-surface text-swiss-text-secondary dark:text-carbon-text-secondary'"
           >
-            {{ getCategoryCount(cat.id) }}
+            {{ cat.count }}
           </span>
         </button>
       </div>
 
-      <!-- Skills Cards Grid -->
+      <!-- Skills Grid (Qualitative Cards, Zero Percentage Bars) -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div
           v-for="skill in filteredSkills"
           :key="skill.name"
-          class="bg-white dark:bg-[#0c1220] border border-zinc-200 dark:border-white/10 rounded-2xl p-5 shadow-sm hover:border-indigo-500/30 transition-all group"
+          class="bg-swiss-surface dark:bg-carbon-card border border-swiss-border dark:border-carbon-border rounded-sm p-5 shadow-swiss-xs hover:border-accent-light dark:hover:border-accent-light transition-colors group"
         >
-          <!-- Skill Info Header -->
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-2.5">
-              <span class="font-bold text-sm text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          <!-- Skill Top Line: Name + Qualitative Level Badge -->
+          <div class="flex items-center justify-between gap-3 mb-2">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-none bg-accent-light"></span>
+              <h3 class="font-display font-bold text-sm text-swiss-text-primary dark:text-carbon-text-primary group-hover:text-accent-light transition-colors">
                 {{ skill.name }}
-              </span>
-              <span
-                class="px-2 py-0.5 rounded-md text-[10px] font-medium border"
-                :class="getLevelBadgeClass(skill.level)"
-              >
-                {{ skill.level }}
-              </span>
+              </h3>
             </div>
 
-            <!-- Percentage Display -->
-            <span class="text-xs font-mono font-bold text-zinc-700 dark:text-zinc-300">
-              {{ skill.percentage }}%
+            <!-- Qualitative Badge (No percentage numbers) -->
+            <span
+              class="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-xs border uppercase tracking-wider"
+              :class="[
+                skill.level === 'Avanzado'
+                  ? 'bg-swiss-muted dark:bg-carbon-surface text-swiss-text-primary dark:text-carbon-text-primary border-swiss-border dark:border-carbon-border'
+                  : 'bg-swiss-ivory dark:bg-carbon-surface text-swiss-text-secondary dark:text-carbon-text-secondary border-swiss-border/70 dark:border-carbon-border/70'
+              ]"
+            >
+              {{ skill.level === 'Avanzado' ? 'Nivel Sólido' : (skill.level === 'Intermedio' ? 'Competente' : 'En Práctica') }}
             </span>
           </div>
 
-          <!-- Progress Bar -->
-          <div class="w-full h-2 rounded-full bg-zinc-100 dark:bg-white/5 overflow-hidden">
-            <div
-              class="h-full rounded-full bg-gradient-to-r from-indigo-600 to-cyan-400 transition-all duration-700 ease-out"
-              :style="{ width: `${skill.percentage}%` }"
-            ></div>
+          <!-- Qualitative Implementation Scope -->
+          <p class="font-sans text-xs text-swiss-text-secondary dark:text-carbon-text-secondary leading-relaxed pl-3.5">
+            {{ getSkillDetail(skill.name) }}
+          </p>
+
+          <!-- Domain Tag Footer -->
+          <div class="mt-3 pt-2.5 border-t border-swiss-border/50 dark:border-carbon-border/50 flex items-center justify-between text-[10px] font-mono text-swiss-text-muted dark:text-carbon-text-muted pl-3.5">
+            <span>DOMINIO: {{ skill.category }}</span>
+            <span class="flex items-center gap-1 text-accent-light font-bold">
+              <CheckCircle2 :size="10" />
+              VERIFICADO
+            </span>
           </div>
         </div>
       </div>
