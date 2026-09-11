@@ -1,195 +1,136 @@
-# Portafolio Web Full-Stack — Ricardo Martín
+# Portafolio Profesional — Ricardo Martín Quiché
 
-Portafolio web profesional de alto rendimiento desarrollado con **Nuxt 3**, **Nitro**, **TypeScript** y un sistema de diseño moderno basado en tendencias **2025/2026** (*Bento Grid*, estética IDE/código, micro-interacciones táctiles y modo oscuro/claro de alto contraste).
+Portafolio web para desarrollador **Full Stack**, construido sobre **Nuxt 3**, **Nitro**, **TypeScript** y **Tailwind CSS**, diseñado bajo los principios de **Swiss Engineering / Technical High-Contrast** con accesibilidad **WCAG 2.1 AA (100/100 en Lighthouse)**, jerarquía pensada para reclutadores técnicos y servicio de mensajería serverless integrado con **Resend**.
+
+---
+
+## 📐 Principios de Diseño: Swiss Engineering High-Contrast
+
+1. **Austeridad y Claridad Suiza**:
+   - Eliminación radical de clichés decorativos (sin ventanas falsas con `const developer = {...}`, sin barras de porcentaje inventadas, sin degradados morados/azules ni resplandores difusos).
+   - Tipografía arquitectónica con [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) para encabezados, [Inter](https://fonts.google.com/specimen/Inter) para lectura continua y [Space Mono](https://fonts.google.com/specimen/Space+Mono) para metadatos técnicos, servidas de forma local y optimizada mediante `@nuxt/fonts`.
+2. **Jerarquía Enfocada en Reclutadores**:
+   - **Hero**: Propuesta de valor contundente, disponibilidad en tiempo real y panel de áreas de especialidad.
+   - **Proyectos**: Evidencia de software con visores de mockup 16:10 y enlaces directos a GitHub.
+   - **Habilidades**: Competencias evaluadas cualitativamente (*Nivel Sólido*, *Competente*, *En Práctica*) agrupadas por dominios técnicos.
+   - **Experiencia**: Trayectoria laboral en agencia digital, proyecto técnico final y colaboraciones open source.
+   - **Educación**: Formación técnica en el *Centro Educativo Técnico Laboral KINAL* (Perito en Informática y CCNAv7) y estudios universitarios en la *Universidad Mariano Gálvez* (Ingeniería en Sistemas).
+   - **Contacto**: Canales directos, botón de copia rápida y formulario con validación estricta.
+3. **Accesibilidad WCAG 2.1 AA Certificada**:
+   - Puntuación de **100 / 100** en auditoría Lighthouse Accessibility.
+   - Contraste medido superior a 5.1:1 en botones y hasta 19.9:1 en textos principales.
+   - Micro-indicadores estables que respetan `prefers-reduced-motion`.
+4. **Botón Dedicado de Descarga de CV**:
+   - Presente en la barra de navegación superior y en el Hero, apuntando a `public/cv-placeholder.pdf` con descarga configurada.
 
 ---
 
 ## 🚀 Tecnologías Principales
 
-* **Framework Full-Stack:** [Nuxt 3](https://nuxt.com/) (Vue 3, Vite, SSR).
-* **Motor de Servidor (Backend):** [Nitro](https://nitro.unjs.io/) con rutas de servidor en `server/api/`.
-* **Lenguaje:** [TypeScript](https://www.typescriptlang.org/) con tipado estricto.
-* **Envío de Correos:** [Resend](https://resend.com/) vía API SDK en servidor.
-* **Validación de Datos:** [Zod](https://zod.dev/) para validación en cliente y servidor.
-* **Estilos:** CSS3 nativo avanzado con variables dinámicas, gradientes espaciales, *glassmorphism* y micro-animaciones.
-* **Control de Estado:** Composables reactivos de Nuxt 3 y `@vueuse/core`.
-
----
-
-## 🌟 Características Destacadas de la UI/UX
-
-1. **Navegación Flotante Tipo Pill:**
-   * Header redondeado con efecto *frosted glass* (`backdrop-filter: blur`).
-   * Detección activa de la sección en pantalla durante el scroll.
-   * Alternancia instantánea entre **Modo Oscuro** y **Modo Claro** con persistencia en `localStorage`.
-   * Menú responsive animado para dispositivos móviles.
-
-2. **Hero Section con Terminal Interactivo:**
-   * Badge de disponibilidad en tiempo real con indicador verde pulsante.
-   * Ventana estilo macOS (`ricardo.config.ts`) con resaltado de sintaxis y botón interactivo para **copiar el snippet de perfil al portapapeles** con confirmación visual.
-   * Indicadores de impacto profesional (3+ proyectos full stack, 10+ tecnologías, formación técnica y universitaria).
-
-3. **Arquitectura Bento Grid:**
-   * **Sobre mí:** Estructura asimétrica que jerarquiza la historia profesional, mentalidad de desarrollo y pilares de trabajo.
-   * **Educación:** Tarjetas visuales con acreditación para el *Centro Educativo Técnico Laboral KINAL* (Perito en Informática y CCNAv7) y la *Universidad Mariano Gálvez* (Ingeniería en Sistemas).
-
-4. **Filtro Reactivo de Habilidades:**
-   * Pestañas interactivas para filtrar por categorías: *Todos*, *Frontend*, *Backend* y *Tools & Design*.
-   * Barras de progreso de dominio técnico con gradiente neón y etiquetas de nivel (*Avanzado*, *Intermedio*, *Básico*).
-
-5. **Proyectos con Marcos Mockup de Aplicación:**
-   * Tarjetas con barra superior de ventana de navegador (`.app`), banner con gradientes temáticos, chips tecnológicos y acceso directo a los repositorios en GitHub.
-
-6. **Línea de Tiempo Luminosa de Experiencia:**
-   * Nodos concéntricos brillantes que conectan cronológicamente la trayectoria profesional.
-
-7. **Formulario de Contacto Full-Stack con Anti-Spam:**
-   * Integración con endpoint propio en `/api/contact`.
-   * **Honeypot antispam** invisible para neutralizar bots automáticamente.
-   * **Rate limiting** por IP para prevenir saturación de peticiones.
-   * Botón táctil para **copiar el correo electrónico** con feedback instantáneo (`✓ Copiado`).
-
----
-
-## 📁 Estructura del Proyecto
-
-```text
-portafolio-nuxt/
-├── assets/
-│   └── css/
-│       └── main.css              # Sistema de diseño, tokens de color, glassmorphism y reset
-├── components/
-│   ├── layout/
-│   │   ├── TheNavbar.vue         # Barra de navegación flotante con theme toggle
-│   │   └── TheFooter.vue         # Footer con branding y botón 'Volver arriba'
-│   └── sections/
-│       ├── HeroSection.vue       # Hero con terminal interactivo de código
-│       ├── AboutSection.vue      # Bento Grid con biografía y pilares
-│       ├── EducationSection.vue  # Tarjetas de formación técnica y académica
-│       ├── SkillsSection.vue     # Filtro reactivo por categorías de habilidades
-│       ├── ProjectsSection.vue   # Muestrario de proyectos en formato mockup
-│       ├── ExperienceSection.vue # Línea de tiempo luminosa
-│       ├── ContactSection.vue    # Panel de canales directos y botón de copiar
-│       └── ContactForm.vue       # Formulario con validación Zod y estados
-├── composables/
-│   └── useTheme.ts               # Lógica reactiva de modo claro/oscuro
-├── data/
-│   └── portfolio.ts              # Contenido real centralizado y tipado
-├── public/
-│   └── favicon.svg               # Favicon vectorial con iniciales RM
-├── server/
-│   ├── api/
-│   │   └── contact.post.ts       # Endpoint Nitro con validación Zod, Resend y Honeypot
-│   ├── shims.d.ts                # Shims de tipado de servidor
-│   └── tsconfig.json             # Configuración TypeScript del runtime de Nitro
-├── types/
-│   └── portfolio.ts              # Interfaces TypeScript del portafolio
-├── .env.example                  # Plantilla de variables de entorno
-├── app.vue                       # Layout principal de la aplicación
-├── nuxt.config.ts                # Configuración de Nuxt, metadatos SEO y fuentes
-└── package.json                  # Dependencias y scripts
-```
+* **Framework:** [Nuxt 3](https://nuxt.com/) (Vue 3, Vite 7, SSR / Nitro).
+* **Motor Backend:** [Nitro](https://nitro.unjs.io/) (Serverless APIs en `server/api/`).
+* **Estilos:** [Tailwind CSS](https://tailwindcss.com/) v3 con tokens de diseño dedicados.
+* **Tipografía Optimizada:** [@nuxt/fonts](https://nuxt.com/modules/fonts) con descarga y caché local.
+* **Envío de Correos:** [Resend](https://resend.com/) vía SDK en servidor con template HTML técnico.
+* **Validación:** [Zod](https://zod.dev/) para esquemas de datos seguros.
+* **Iconografía:** [lucide-vue-next](https://lucide.dev/).
 
 ---
 
 ## 🛠️ Instalación y Configuración Local
 
-### 1. Requisitos Previos
-* Node.js v18 o superior (probado y compatible con Node v23).
-* Gestor de paquetes `npm`.
+### 1. Clonar el repositorio e instalar dependencias
 
-### 2. Clonar / Descargar el Proyecto
-Abre tu terminal en la carpeta del proyecto:
 ```bash
+git clone https://github.com/rmartin-2023205/Portafolio-Rmartin.git
 cd "Portafolio Nuxt"
+npm install
 ```
 
-### 3. Instalar Dependencias
-```bash
-npm install --legacy-peer-deps
-```
+### 2. Configurar Variables de Entorno
 
-### 4. Configurar Variables de Entorno
-Copia el archivo `.env.example` a un archivo `.env`:
+Copia la plantilla `.env.example` a un archivo `.env`:
+
 ```bash
 cp .env.example .env
 ```
 
-Edita `.env` con tus credenciales:
-```env
-# Obtén tu API Key gratuita en https://resend.com/api-keys
-RESEND_API_KEY=re_tu_api_key_aqui
+Edita tu archivo `.env`:
 
-# Correo donde Ricardo Martín recibirá los mensajes
+```env
+# Clave API de Resend (obtenida gratis en https://resend.com)
+RESEND_API_KEY=re_tu_clave_aqui
+
+# Destinatario donde recibirás los mensajes de contacto
 CONTACT_EMAIL_TO=martinricardo634@gmail.com
 
-# Remitente (en desarrollo se usa onboarding@resend.dev)
+# Remitente de salida (por defecto onboarding@resend.dev para pruebas)
 CONTACT_EMAIL_FROM=Portafolio Ricardo Martín <onboarding@resend.dev>
 ```
 
-> [!NOTE]
-> **Modo Simulación (Desarrollo Local):** Si ejecutas el proyecto sin configurar una `RESEND_API_KEY` o con el valor por defecto, el endpoint de servidor `/api/contact` activará automáticamente el modo de simulación, registrando el mensaje en la consola del servidor y respondiendo con éxito para que puedas probar la experiencia visual y funcional del formulario sin requerir una cuenta de Resend activa inmediatamente.
+> **Nota de Seguridad:** Si `RESEND_API_KEY` se deja vacía o no empieza por `re_`, el backend activa automáticamente el **modo simulación**, registrando el mensaje en la consola del servidor sin romper el formulario. El archivo `.env` está protegido en `.gitignore` y **nunca** se expone en los bundles del cliente.
 
----
+### 3. Ejecutar en Desarrollo
 
-## 💻 Comandos de Ejecución
-
-### Modo Desarrollo
-Inicia el servidor de desarrollo local con recarga rápida (HMR):
 ```bash
 npm run dev
 ```
-Accede en tu navegador a: **`http://localhost:3000`**
 
-### Compilación para Producción
-Genera la versión optimizada de producción tanto para cliente como para el servidor Nitro:
+El sitio estará disponible en `http://localhost:3000`.
+
+### 4. Compilar para Producción
+
 ```bash
 npm run build
-```
-
-### Vista Previa de Producción
-Prueba localmente el bundle compilado de Nitro:
-```bash
 npm run preview
 ```
 
 ---
 
-## ☁️ Despliegue en la Nube
+## 🌐 Despliegue en Producción (Vercel vs Netlify)
 
-El proyecto utiliza Nitro, lo que permite despliegues automáticos con cero configuración en las principales plataformas serverless:
+### 🥇 Recomendado: Despliegue en [Vercel](https://vercel.com/) (Compatibilidad Nativa)
 
-### Opción 1: Despliegue en Vercel (Recomendado)
-1. Sube tu repositorio a GitHub.
-2. Inicia sesión en [Vercel](https://vercel.com/) y selecciona **Add New Project**.
-3. Importa el repositorio `Portafolio Nuxt`. Vercel detectará automáticamente que es un proyecto Nuxt.
-4. En la sección **Environment Variables**, agrega:
-   * `RESEND_API_KEY`: Tu clave de API de Resend.
-   * `CONTACT_EMAIL_TO`: `martinricardo634@gmail.com`
-   * `CONTACT_EMAIL_FROM`: Tu remitente configurado (o `onboarding@resend.dev`).
-5. Haz clic en **Deploy**.
+Nuxt 3 y Nitro tienen integración nativa con Vercel. El motor detecta el entorno automáticamente (`preset: 'vercel'`), sirviendo los assets estáticos desde el Edge CDN y ejecutando `/api/contact` como una Serverless Function de baja latencia sin configuración extra.
 
-### Opción 2: Despliegue en Netlify
-1. Conecta tu repositorio en [Netlify](https://www.netlify.com/).
-2. El comando de compilación es `npm run build` y el directorio de publicación es `.output/public`.
-3. Configura las variables de entorno en **Site configuration > Environment variables**.
-4. Despliega el sitio.
+#### Pasos para desplegar en Vercel:
+1. Sube tu código a GitHub.
+2. Inicia sesión en [Vercel](https://vercel.com/) e importa tu repositorio.
+3. Vercel detectará el framework como **Nuxt.js**.
+4. Ve a la sección **Environment Variables** y agrega:
+   - `RESEND_API_KEY`: tu clave real de Resend (`re_...`).
+   - `CONTACT_EMAIL_TO`: `martinricardo634@gmail.com`.
+   - `CONTACT_EMAIL_FROM`: `Portafolio Ricardo Martín <onboarding@resend.dev>` *(o tu dominio propio verificado en Resend)*.
+5. Haz clic en **Deploy**. El sitio se compilará y desplegará en segundos con HTTPS y dominio asignado.
 
 ---
 
-## 👤 Autor
+### 🥈 Alternativa: Despliegue en [Netlify](https://www.netlify.com/)
 
-**Ricardo Martín (Ricardo Martín Quiché)**
-* **Rol:** Desarrollador Junior Full Stack
-* **Email:** [martinricardo634@gmail.com](mailto:martinricardo634@gmail.com)
-* **GitHub:** [@rmartin-2023205](https://github.com/rmartin-2023205)
-* **LinkedIn:** [Ricardo Martín Quiché](https://www.linkedin.com/in/ricardo-martín-quiché-005768349)
+Netlify también soporta Nuxt 3 usando el preset de Nitro para Netlify Functions:
+
+1. Conecta tu repositorio en Netlify.
+2. Configura el comando de build: `npm run build` y el directorio de publicación: `.output/public`.
+3. En **Site configuration > Environment variables**, agrega `RESEND_API_KEY`, `CONTACT_EMAIL_TO` y `CONTACT_EMAIL_FROM`.
+4. Despliega el proyecto.
+
+---
+
+## 📋 Reemplazo de Assets (Capturas de Proyectos y CV)
+
+Para sustituir las capturas de los 3 proyectos y tu CV en PDF, consulta la guía paso a paso en [TODO-ASSETS.md](file:///c:/Users/marti/Desktop/Portafolio%20Nuxt/TODO-ASSETS.md).
+
+---
+
+## 🔒 Seguridad y Buenas Prácticas
+
+- **Protección Antispam:** Campo honeypot oculto `website_hp` que descarta envíos automatizados de bots silenciosamente.
+- **Rate Limiting:** Control en memoria por IP que permite un máximo de 4 peticiones cada 5 minutos (retorna error HTTP 429).
+- **Sanitización HTML:** Escapado de caracteres especiales (`&`, `<`, `>`, `"`, `'`) antes de renderizar correos electrónicos.
+- **Variables Privadas:** Credenciales de Resend encapsuladas estrictamente en el entorno Nitro de servidor (`runtimeConfig`), con cero fugas en el cliente.
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia **MIT** — consulta el archivo [LICENSE](LICENSE) para más detalles.
-
-Copyright (c) 2026 **Ricardo Martín Quiché**.
-
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](file:///c:/Users/marti/Desktop/Portafolio%20Nuxt/LICENSE) para más detalles.
