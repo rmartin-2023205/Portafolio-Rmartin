@@ -1,27 +1,46 @@
 %PDF-1.4
 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
 2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
-3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >> endobj
-4 0 obj << /Length 130 >> stream
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >> endobj
+4 0 obj << /Length 520 >> stream
 BT
-/F1 18 Tf
-50 720 Td
-(Curriculum Vitae - Ricardo Martin Quiche) Tj
-/F1 12 Tf
-0 -30 Td
-(Desarrollador Junior Full Stack - Proximamente actualizacion disponible) Tj
+/F1 22 Tf
+50 710 Td
+(Ricardo Martin Quiche) Tj
+/F2 13 Tf
+0 -26 Td
+(Desarrollador Full Stack | Guatemala) Tj
+0 -40 Td
+/F1 14 Tf
+(Curriculum Vitae en preparacion) Tj
+/F2 11 Tf
+0 -24 Td
+(Actualmente estoy actualizando este documento con mis proyectos mas recientes.) Tj
+0 -18 Td
+(Mientras tanto, puedes consultar mi perfil profesional completo y recomendaciones en LinkedIn:) Tj
+0 -26 Td
+/F1 11 Tf
+(https://www.linkedin.com/in/ricardo-martin-quiche-005768349) Tj
+0 -36 Td
+/F2 11 Tf
+(O escribirme directamente a mi correo electronico:) Tj
+0 -20 Td
+/F1 11 Tf
+(martinricardo634@gmail.com) Tj
 ET
 endstream endobj
-5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> endobj
+6 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
 xref
-0 6
+0 7
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
 0000000115 00000 n 
-0000000244 00000 n 
-0000000427 00000 n 
-trailer << /Size 6 /Root 1 0 R >>
+0000000259 00000 n 
+0000000833 00000 n 
+0000000902 00000 n 
+trailer << /Size 7 /Root 1 0 R >>
 startxref
-498
+966
 %%EOF
