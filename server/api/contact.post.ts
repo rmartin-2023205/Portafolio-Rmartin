@@ -71,9 +71,28 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const apiKey = config.resendApiKey
-  const recipient = config.contactEmailTo || 'martinricardo634@gmail.com'
-  const sender = config.contactEmailFrom || 'Portafolio Ricardo Martín <onboarding@resend.dev>'
+  const cfEnv = ((event.context as any)?.cloudflare?.env) || {}
+  const apiKey =
+    cfEnv.RESEND_API_KEY ||
+    cfEnv.NUXT_RESEND_API_KEY ||
+    config.resendApiKey ||
+    process.env.RESEND_API_KEY ||
+    process.env.NUXT_RESEND_API_KEY ||
+    ''
+
+  const recipient =
+    cfEnv.CONTACT_EMAIL_TO ||
+    cfEnv.NUXT_CONTACT_EMAIL_TO ||
+    config.contactEmailTo ||
+    process.env.CONTACT_EMAIL_TO ||
+    'martinricardo634@gmail.com'
+
+  const sender =
+    cfEnv.CONTACT_EMAIL_FROM ||
+    cfEnv.NUXT_CONTACT_EMAIL_FROM ||
+    config.contactEmailFrom ||
+    process.env.CONTACT_EMAIL_FROM ||
+    'Portafolio Ricardo Martín <onboarding@resend.dev>'
 
   // Si no hay API key configurada en .env, registrar en consola (Modo Dev / Simulación)
   if (!apiKey || apiKey === 're_tu_api_key_aqui' || !apiKey.startsWith('re_')) {

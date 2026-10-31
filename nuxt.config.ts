@@ -47,9 +47,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     // Claves privadas accesibles solo en server/ (Nitro)
-    resendApiKey: process.env.RESEND_API_KEY || '',
-    contactEmailTo: process.env.CONTACT_EMAIL_TO || 'martinricardo634@gmail.com',
-    contactEmailFrom: process.env.CONTACT_EMAIL_FROM || 'Portafolio Ricardo Martín <onboarding@resend.dev>',
+    resendApiKey: process.env.NUXT_RESEND_API_KEY || process.env.RESEND_API_KEY || '',
+    contactEmailTo: process.env.NUXT_CONTACT_EMAIL_TO || process.env.CONTACT_EMAIL_TO || 'martinricardo634@gmail.com',
+    contactEmailFrom: process.env.NUXT_CONTACT_EMAIL_FROM || process.env.CONTACT_EMAIL_FROM || 'Portafolio Ricardo Martín <onboarding@resend.dev>',
     public: {
       contactEmail: 'martinricardo634@gmail.com'
     }
