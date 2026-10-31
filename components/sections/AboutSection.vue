@@ -66,8 +66,8 @@ const { personal } = portfolioData
               <div class="text-[11px] text-swiss-text-muted dark:text-carbon-text-muted mt-0.5">Mantenible y tipado</div>
             </div>
             <div class="p-3 bg-swiss-ivory dark:bg-carbon-surface border border-swiss-border dark:border-carbon-border rounded-xs">
-              <div class="font-bold text-swiss-text-primary dark:text-carbon-text-primary">OPEN SOURCE</div>
-              <div class="text-[11px] text-swiss-text-muted dark:text-carbon-text-muted mt-0.5">Colaboración activa</div>
+              <div class="font-bold text-swiss-text-primary dark:text-carbon-text-primary">UNIVERSIDAD</div>
+              <div class="text-[11px] text-swiss-text-muted dark:text-carbon-text-muted mt-0.5">Segundo semestre</div>
             </div>
           </div>
         </div>

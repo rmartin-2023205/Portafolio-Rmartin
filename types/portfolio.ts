@@ -16,7 +16,7 @@ export interface SkillItem {
   name: string
   level: 'Básico' | 'Intermedio' | 'Avanzado'
   percentage: number
-  category?: 'Frontend' | 'Backend' | 'Tools & Design'
+  category?: 'Frontend' | 'Backend' | 'Mobile' | 'Tools & Design'
 }
 
 export interface ProjectItem {

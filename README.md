@@ -13,7 +13,7 @@ Portafolio web para desarrollador **Full Stack**, construido sobre **Nuxt 3**, *
    - **Hero**: Propuesta de valor contundente, disponibilidad en tiempo real y panel de áreas de especialidad.
    - **Proyectos**: Evidencia de software con visores de mockup 16:10 y enlaces directos a GitHub.
    - **Habilidades**: Competencias evaluadas cualitativamente (*Nivel Sólido*, *Competente*, *En Práctica*) agrupadas por dominios técnicos.
-   - **Experiencia**: Trayectoria laboral en agencia digital, proyecto técnico final y colaboraciones open source.
+   - **Experiencia**: Trayectoria como Desarrollador Full Stack (Node.js & React) y Desarrollador Frontend (Plus TI).
    - **Educación**: Formación técnica en el *Centro Educativo Técnico Laboral KINAL* (Perito en Informática y CCNAv7) y estudios universitarios en la *Universidad Mariano Gálvez* (Ingeniería en Sistemas).
    - **Contacto**: Canales directos, botón de copia rápida y formulario con validación estricta.
 3. **Accesibilidad WCAG 2.1 AA Certificada**:

@@ -44,7 +44,7 @@ const { personal } = portfolioData
 
           <!-- Value Proposition Narrative -->
           <p class="font-sans text-sm sm:text-base md:text-lg text-swiss-text-secondary dark:text-carbon-text-secondary leading-relaxed mb-6 sm:mb-8 max-w-xl">
-            Hola, soy <strong class="text-swiss-text-primary dark:text-carbon-text-primary font-semibold">{{ personal.fullName }}</strong>. Construyo aplicaciones web integrando frontends modernos en React y TypeScript con APIs en Node.js, Express y bases de datos estructuradas.
+            Hola, soy <strong class="text-swiss-text-primary dark:text-carbon-text-primary font-semibold">{{ personal.fullName }}</strong>. Construyo aplicaciones web y móviles con Next.js, React, React Native, Nuxt, Vue, Node.js y Spring Boot en Java, respaldadas por bases de datos PostgreSQL, MySQL y MongoDB.
           </p>
 
           <!-- Recruitment Action Strip (Full width on mobile, inline on desktop) -->
@@ -127,10 +127,10 @@ const { personal } = portfolioData
                 </div>
                 <div>
                   <h2 class="font-display font-bold text-xs uppercase tracking-wide text-swiss-text-primary dark:text-carbon-text-primary">
-                    Desarrollo Frontend Reactivo
+                    Desarrollo Frontend & Mobile
                   </h2>
                   <p class="text-xs text-swiss-text-secondary dark:text-carbon-text-secondary mt-1 leading-relaxed">
-                    Aplicaciones modulares con React, TypeScript, Vue y Nuxt 3, garantizando interfaces accesibles y fluidas.
+                    Aplicaciones web y móviles con Next.js, React, React Native, Nuxt y Vue con TypeScript.
                   </p>
                 </div>
               </div>
@@ -145,7 +145,7 @@ const { personal } = portfolioData
                     Servicios Backend & APIs
                   </h2>
                   <p class="text-xs text-swiss-text-secondary dark:text-carbon-text-secondary mt-1 leading-relaxed">
-                    Diseño e implementación de APIs RESTful en Node.js y Express con persistencia en MongoDB y SQL.
+                    Arquitecturas backend y microservicios con Node.js y Spring Boot (Java), con PostgreSQL, MySQL y MongoDB.
                   </p>
                 </div>
               </div>

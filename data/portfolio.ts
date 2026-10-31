@@ -10,7 +10,7 @@ export const portfolioData: PortfolioData = {
     aboutParagraphs: [
       'Soy un desarrollador junior apasionado por la programación y el desarrollo web. Tengo experiencia en la creación de aplicaciones web responsivas y funcionales utilizando tecnologías modernas. Me caracterizo por ser un aprendiz constante, colaborativo y comprometido con la calidad del código.',
       'Mi objetivo es convertirme en un desarrollador full stack competente, capaz de enfrentar desafíos complejos y contribuir significativamente a proyectos innovadores. Busco oportunidades donde pueda crecer profesionalmente, aprender nuevas tecnologías y crear soluciones que impacten positivamente.',
-      'Fuera del código, disfruto de aprender nuevas tecnologías, resolver problemas lógicos y contribuir a la comunidad open source.'
+      'Fuera del código, disfruto de aprender nuevas tecnologías, resolver problemas lógicos y seguir ampliando mis conocimientos técnicos.'
     ],
     email: 'martinricardo634@gmail.com',
     github: 'https://github.com/rmartin-2023205',
@@ -37,7 +37,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: 'umg-ingenieria',
-      title: 'Cursando Primer Semestre Ingeniería en Sistemas',
+      title: 'Cursando Segundo Semestre Ingeniería en Sistemas',
       institution: 'Universidad Mariano Gálvez',
       period: '2026',
       description: 'Mantenimiento de sistemas operativos y equipos de cómputo.',
@@ -53,26 +53,43 @@ export const portfolioData: PortfolioData = {
     }
   ],
   skills: [
-    { name: 'HTML5', level: 'Avanzado', percentage: 90, category: 'Frontend' },
-    { name: 'CSS3 & Flexbox', level: 'Avanzado', percentage: 85, category: 'Frontend' },
-    { name: 'JavaScript', level: 'Intermedio', percentage: 75, category: 'Frontend' },
-    { name: 'React', level: 'Intermedio', percentage: 70, category: 'Frontend' },
-    { name: 'Node.js & Express', level: 'Intermedio', percentage: 70, category: 'Backend' },
-    { name: 'SQL & Bases de Datos', level: 'Intermedio', percentage: 72, category: 'Backend' },
-    { name: 'Git & GitHub', level: 'Intermedio', percentage: 80, category: 'Tools & Design' },
-    { name: 'Responsive Design', level: 'Avanzado', percentage: 88, category: 'Frontend' },
-    { name: 'REST APIs', level: 'Intermedio', percentage: 73, category: 'Backend' },
-    { name: 'Figma & Diseño UI/UX', level: 'Básico', percentage: 60, category: 'Tools & Design' }
+    { name: 'TypeScript (TS)', level: 'Intermedio', percentage: 80, category: 'Frontend' },
+    { name: 'JavaScript (JS)', level: 'Avanzado', percentage: 88, category: 'Frontend' },
+    { name: 'React', level: 'Intermedio', percentage: 82, category: 'Frontend' },
+    { name: 'Next.js', level: 'Intermedio', percentage: 78, category: 'Frontend' },
+    { name: 'Vue', level: 'Intermedio', percentage: 78, category: 'Frontend' },
+    { name: 'Nuxt', level: 'Intermedio', percentage: 80, category: 'Frontend' },
+    { name: 'React Native', level: 'Intermedio', percentage: 72, category: 'Mobile' },
+    { name: 'Node.js', level: 'Intermedio', percentage: 80, category: 'Backend' },
+    { name: 'Java', level: 'Intermedio', percentage: 75, category: 'Backend' },
+    { name: 'Spring Boot', level: 'Intermedio', percentage: 72, category: 'Backend' },
+    { name: 'PostgreSQL', level: 'Intermedio', percentage: 76, category: 'Backend' },
+    { name: 'MongoDB', level: 'Intermedio', percentage: 78, category: 'Backend' },
+    { name: 'MySQL', level: 'Intermedio', percentage: 78, category: 'Backend' },
+    { name: 'Git & GitHub', level: 'Avanzado', percentage: 85, category: 'Tools & Design' }
   ],
   projects: [
     {
-      id: 'mobiexpress',
-      title: 'MobiExpress',
-      description: 'E-commerce de renta de mobiliarios. Plataforma frontend desarrollada en React con gestión de catálogo, carrito de compras y sistema de reservas. Integrado con MongoDB.',
-      tags: ['React', 'MongoDB', 'Node.js'],
-      githubUrl: 'https://github.com/jmarroquin-2023026/MobiExpress-React.git',
-      gradient: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-      icon: 'Armchair'
+      id: 'citapro',
+      title: 'CitaPro',
+      description: 'Plataforma web para gestión y agendamiento de citas en línea con arquitectura multi-rol (Administrador, Profesional y Cliente). Incluye flujo de reserva en 4 pasos, consulta de disponibilidad en tiempo real, agendas dinámicas, control de horarios y panel administrativo con métricas.',
+      tags: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'TanStack Query', 'Zod'],
+      githubUrl: 'https://github.com/rmartin-2023205/CitaPro.git',
+      demoUrl: 'https://cita-pro.vercel.app/',
+      imageUrl: '/projects/citapro.png',
+      gradient: 'linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%)',
+      icon: 'Calendar'
+    },
+    {
+      id: 'stockflow',
+      title: 'StockFlow',
+      description: 'Sistema SPA para control de inventarios, existencias y punto de venta (POS) para comercios. Incluye catálogo de productos, gestión de categorías, trazabilidad de existencias en almacenes, módulo de ventas con carrito y panel analítico con métricas.',
+      tags: ['React 19', 'Tailwind CSS', 'Vite', 'React Router', 'REST APIs'],
+      githubUrl: 'https://github.com/rmartin-2023205/Stockflow.git',
+      demoUrl: 'https://stockflow-alpha-green.vercel.app/',
+      imageUrl: '/projects/stockflow.png',
+      gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      icon: 'Boxes'
     },
     {
       id: 'blog-personal',
@@ -95,28 +112,28 @@ export const portfolioData: PortfolioData = {
   ],
   experience: [
     {
-      id: 'exp-agencia-xyz',
-      role: 'Desarrollador Frontend - Práctica',
-      company: 'Agencia Digital XYZ',
-      period: 'Junio 2024 - Presente',
-      description: 'Desarrollo de interfaces de usuario responsivas, mantenimiento de código frontend, colaboración con diseñadores UX/UI y optimización de rendimiento web.',
-      tags: ['React', 'HTML/CSS', 'Git']
+      id: 'exp-fullstack-current',
+      role: 'Desarrollador Full Stack (Node.js & React)',
+      company: 'Empresa de Tecnología',
+      period: '3 de Diciembre 2025 - Presente',
+      description: 'Desarrollo e implementación de soluciones full stack con Node.js en el backend y React en el frontend. Creación de APIs RESTful, gestión de estado y persistencia de datos eficiente.',
+      tags: ['Node.js', 'React', 'JavaScript', 'REST APIs', 'Full Stack']
+    },
+    {
+      id: 'exp-plus-ti',
+      role: 'Desarrollador Frontend',
+      company: 'Plus TI',
+      period: '1 de Agosto 2025 - 31 de Octubre 2025',
+      description: 'Desarrollo y optimización de interfaces de usuario web responsivas, componentes interactivos y colaboración técnica en equipo.',
+      tags: ['React', 'Frontend', 'JavaScript', 'CSS3']
     },
     {
       id: 'exp-proyecto-final',
       role: 'Proyecto Final de Técnico',
-      company: 'Instituto Tecnológico',
+      company: 'Centro Educativo Técnico Laboral KINAL',
       period: 'Abril 2024 - Mayo 2024',
       description: 'Desarrollo de plataforma educativa completa con backend en Node.js, base de datos SQL y frontend responsivo. Trabajo en equipo de 4 personas.',
       tags: ['Node.js', 'SQL', 'Teamwork']
-    },
-    {
-      id: 'exp-open-source',
-      role: 'Contribuidor Open Source',
-      company: 'Comunidad GitHub',
-      period: '2023 - Presente',
-      description: 'Contribuciones en proyectos open source, reportes de bugs, mejoras de documentación y desarrollo de nuevas funcionalidades.',
-      tags: ['GitHub', 'Colaboración', 'Código abierto']
     }
   ]
 }

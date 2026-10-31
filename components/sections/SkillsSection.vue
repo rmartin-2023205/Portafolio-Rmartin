@@ -12,12 +12,13 @@ import {
 import { portfolioData } from '~/data/portfolio'
 
 const { skills } = portfolioData
-const activeCategory = ref<'Todos' | 'Frontend' | 'Backend' | 'Tools & Design'>('Todos')
+const activeCategory = ref<'Todos' | 'Frontend' | 'Backend' | 'Mobile' | 'Tools & Design'>('Todos')
 
 const categories = [
   { id: 'Todos' as const, label: 'Todos los dominios', count: skills.length },
   { id: 'Frontend' as const, label: 'Frontend & UI', count: skills.filter(s => s.category === 'Frontend').length },
   { id: 'Backend' as const, label: 'Backend & Bases de Datos', count: skills.filter(s => s.category === 'Backend').length },
+  { id: 'Mobile' as const, label: 'Mobile', count: skills.filter(s => s.category === 'Mobile').length },
   { id: 'Tools & Design' as const, label: 'Herramientas & Flujo', count: skills.filter(s => s.category === 'Tools & Design').length }
 ]
 
@@ -28,26 +29,38 @@ const filteredSkills = computed(() => {
 
 const getSkillDetail = (name: string): string => {
   switch (name) {
-    case 'HTML5':
-      return 'Semántica web accesible, SEO técnico y estructura de documentos.'
-    case 'CSS3 & Flexbox':
-      return 'Maquetación responsiva moderna, Grid, animaciones fluidas y Tailwind CSS.'
+    case 'TypeScript (TS)':
+    case 'TypeScript':
+      return 'Tipado estático robusto, interfaces, generics y desarrollo escalable sin errores en tiempo de ejecución.'
+    case 'JavaScript (JS)':
     case 'JavaScript':
-      return 'ES6+, manipulación del DOM, asincronía (Promises/Async-Await) y modularidad.'
+      return 'ES6+, manipulación del DOM, programación asíncrona (Promises/Async-Await) y modularidad.'
     case 'React':
-      return 'Componentes funcionales, custom hooks, gestión de estado y consumo de APIs.'
-    case 'Node.js & Express':
-      return 'Servidores HTTP, middlewares, enrutamiento modular y manejo de errores.'
-    case 'SQL & Bases de Datos':
-      return 'Modelado relacional y NoSQL con MongoDB; consultas, índices y CRUD.'
+      return 'Desarrollo de interfaces declarativas con componentes funcionales, hooks personalizados y gestión de estado.'
+    case 'Next.js':
+      return 'Renderizado híbrido (SSR y SSG), Server Components, rutas de API y optimización web avanzada.'
+    case 'Vue':
+    case 'Vue.js':
+      return 'Arquitectura reactiva con Composition API, Single-File Components y ecosistema moderno.'
+    case 'Nuxt':
+    case 'Nuxt.js':
+      return 'Aplicaciones SSR/SSG con Vue, renderizado universal, módulos integrados y optimización SEO.'
+    case 'React Native':
+      return 'Desarrollo de aplicaciones móviles multiplataforma para iOS y Android con componentes nativos.'
+    case 'Node.js':
+      return 'Entornos de ejecución backend, desarrollo de APIs RESTful modulares, asincronía y microservicios.'
+    case 'Java':
+      return 'Programación orientada a objetos (POO), arquitectura de software, concurrencia y estructuras de datos.'
+    case 'Spring Boot':
+      return 'Desarrollo de microservicios y APIs REST empresariales con Spring Data, inyección de dependencias y seguridad.'
+    case 'PostgreSQL':
+      return 'Base de datos relacional avanzada, diseño de esquemas estructurados, índices, integridad y optimización de consultas.'
+    case 'MongoDB':
+      return 'Base de datos NoSQL documental, agregaciones complejas, modelado flexible y colecciones dinámicas.'
+    case 'MySQL':
+      return 'Modelado relacional normalizado, transacciones ACID, diseño de tablas, índices y procedimientos almacenados.'
     case 'Git & GitHub':
-      return 'Control de versiones, flujos de ramas (Git Flow), pull requests y colaboración.'
-    case 'Responsive Design':
-      return 'Estrategia mobile-first, media queries y adaptación multiplataforma.'
-    case 'REST APIs':
-      return 'Endpoints estructurados, códigos de estado HTTP y serialización JSON.'
-    case 'Figma & Diseño UI/UX':
-      return 'Interpretación de wireframes, design systems y prototipado visual.'
+      return 'Control de versiones profesional, flujos de trabajo colaborativos (Git Flow), pull requests y branching.'
     default:
       return 'Implementación técnica en proyectos de desarrollo.'
   }

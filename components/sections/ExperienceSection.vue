@@ -23,12 +23,12 @@ import { portfolioData } from '~/data/portfolio'
             Experiencia Laboral y Práctica
           </h2>
           <p class="font-sans text-swiss-text-secondary dark:text-carbon-text-secondary text-sm sm:text-base mt-2 max-w-xl leading-relaxed">
-            Desarrollo colaborativo en agencias, plataformas técnicas completas y actividad en la comunidad de código abierto.
+            Desarrollo de software en roles Full Stack y Frontend, construcción de APIs y aplicaciones web.
           </p>
         </div>
 
         <div class="font-mono text-xs text-swiss-text-muted dark:text-carbon-text-muted">
-          TIMELINE // <strong class="text-swiss-text-primary dark:text-carbon-text-primary font-bold">2023 - 2026</strong>
+          TIMELINE // <strong class="text-swiss-text-primary dark:text-carbon-text-primary font-bold">2024 - Presente</strong>
         </div>
       </div>
 

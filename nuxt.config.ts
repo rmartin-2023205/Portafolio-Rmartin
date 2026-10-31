@@ -19,7 +19,7 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
-          content: 'Portafolio profesional de Ricardo Martín Quiché — Desarrollador Junior Full Stack. Especializado en aplicaciones web modernas, React, Node.js, Express y bases de datos.'
+          content: 'Portafolio profesional de Ricardo Martín Quiché — Desarrollador Junior Full Stack. Especializado en Next.js, React, React Native, Nuxt, Vue, Node.js, Spring Boot y bases de datos SQL/NoSQL.'
         },
         { name: 'author', content: 'Ricardo Martín Quiché' },
         { property: 'og:title', content: 'Ricardo Martín | Desarrollador Junior Full Stack' },

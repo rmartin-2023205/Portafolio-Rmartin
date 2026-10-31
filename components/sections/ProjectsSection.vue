@@ -3,6 +3,7 @@ import {
   FolderGit2,
   Github,
   ArrowUpRight,
+  ExternalLink,
   Code2
 } from 'lucide-vue-next'
 import { portfolioData } from '~/data/portfolio'
@@ -30,12 +31,12 @@ import ProjectMockup from '~/components/common/ProjectMockup.vue'
 
         <!-- Meta Count Indicator -->
         <div class="font-mono text-xs text-swiss-text-muted dark:text-carbon-text-muted">
-          TOTAL_REPOS: <strong class="text-swiss-text-primary dark:text-carbon-text-primary font-bold">03</strong>
+          TOTAL_REPOS: <strong class="text-swiss-text-primary dark:text-carbon-text-primary font-bold">{{ portfolioData.projects.length < 10 ? '0' + portfolioData.projects.length : portfolioData.projects.length }}</strong>
         </div>
       </div>
 
-      <!-- Projects Grid (3 Cards) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <article
           v-for="project in portfolioData.projects"
           :key="project.id"
@@ -52,12 +53,22 @@ import ProjectMockup from '~/components/common/ProjectMockup.vue'
 
             <!-- Card Content Body -->
             <div class="p-5 sm:p-6">
-              <!-- Title & Category -->
+              <!-- Title & Category / Status Badge -->
               <div class="flex items-start justify-between gap-3 mb-2.5">
                 <h3 class="font-display text-lg font-bold text-swiss-text-primary dark:text-carbon-text-primary group-hover:text-accent-light transition-colors">
                   {{ project.title }}
                 </h3>
-                <span class="font-mono text-[10px] px-1.5 py-0.5 rounded-xs bg-swiss-muted dark:bg-carbon-surface text-swiss-text-muted dark:text-carbon-text-muted border border-swiss-border dark:border-carbon-border shrink-0">
+                <span
+                  v-if="project.demoUrl"
+                  class="font-mono text-[10px] px-2 py-0.5 rounded-xs bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-semibold flex items-center gap-1 shrink-0"
+                >
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  EN VIVO
+                </span>
+                <span
+                  v-else
+                  class="font-mono text-[10px] px-1.5 py-0.5 rounded-xs bg-swiss-muted dark:bg-carbon-surface text-swiss-text-muted dark:text-carbon-text-muted border border-swiss-border dark:border-carbon-border shrink-0"
+                >
                   FULL STACK
                 </span>
               </div>
@@ -82,17 +93,34 @@ import ProjectMockup from '~/components/common/ProjectMockup.vue'
               </span>
             </div>
 
-            <!-- GitHub Repository CTA Button -->
-            <a
-              :href="project.githubUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-sm font-sans text-xs font-semibold text-swiss-text-primary dark:text-carbon-text-primary bg-swiss-ivory dark:bg-carbon-surface border border-swiss-border dark:border-carbon-border hover:border-accent-light hover:text-accent-light transition-colors shadow-swiss-xs"
-            >
-              <Github :size="14" />
-              <span>Ver Código en GitHub</span>
-              <ArrowUpRight :size="13" class="text-swiss-text-muted dark:text-carbon-text-muted group-hover:text-accent-light transition-colors" />
-            </a>
+            <!-- Action Buttons: Live Demo & GitHub Repo -->
+            <div class="flex items-center gap-2">
+              <a
+                v-if="project.demoUrl"
+                :href="project.demoUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-sm font-sans text-xs font-semibold text-white bg-accent hover:bg-accent-hover transition-colors shadow-swiss-xs"
+              >
+                <ExternalLink :size="13" />
+                <span>Demo en Vivo</span>
+              </a>
+              <a
+                :href="project.githubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                :class="[
+                  project.demoUrl ? 'w-auto px-3.5' : 'w-full px-3',
+                  'inline-flex items-center justify-center gap-2 py-2.5 rounded-sm font-sans text-xs font-semibold text-swiss-text-primary dark:text-carbon-text-primary bg-swiss-ivory dark:bg-carbon-surface border border-swiss-border dark:border-carbon-border hover:border-accent-light hover:text-accent-light transition-colors shadow-swiss-xs'
+                ]"
+                :title="project.demoUrl ? 'Ver código en GitHub' : undefined"
+              >
+                <Github :size="14" />
+                <span v-if="!project.demoUrl">Ver Código en GitHub</span>
+                <span v-else class="hidden sm:inline">Código</span>
+                <ArrowUpRight :size="13" class="text-swiss-text-muted dark:text-carbon-text-muted group-hover:text-accent-light transition-colors" />
+              </a>
+            </div>
           </div>
         </article>
       </div>

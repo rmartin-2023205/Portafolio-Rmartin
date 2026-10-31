@@ -15,11 +15,12 @@ Los componentes de proyectos están configurados con un visor con relación de a
 
 ### Rutas Exactas de Archivos:
 
-| Proyecto | Ruta del Archivo en el Repositorio | Archivo de Configuración |
+| Proyecto | Ruta del Archivo en el Repositorio | Estado |
 | :--- | :--- | :--- |
-| **MobiExpress** | `public/projects/mobiexpress.png` | `data/portfolio.ts` (id: `'mobiexpress'`) |
-| **Blog Personal** | `public/projects/blog-personal.png` | `data/portfolio.ts` (id: `'blog-personal'`) |
-| **Gestor de Opiniones** | `public/projects/gestor-opiniones.png` | `data/portfolio.ts` (id: `'gestor-opiniones'`) |
+| **CitaPro** | `public/projects/citapro.png` | ✅ Imagen vinculada |
+| **StockFlow** | `public/projects/stockflow.png` | ✅ Imagen vinculada |
+| **Blog Personal** | `public/projects/blog-personal.png` | Blueprint CAD (Pendiente) |
+| **Gestor de Opiniones** | `public/projects/gestor-opiniones.png` | Blueprint CAD (Pendiente) |
 
 ### Cómo vincular la imagen una vez guardada:
 Abre el archivo [data/portfolio.ts](file:///c:/Users/marti/Desktop/Portafolio%20Nuxt/data/portfolio.ts) y añade la propiedad `imageUrl` al proyecto correspondiente:
