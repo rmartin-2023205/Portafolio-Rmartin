@@ -60,7 +60,7 @@ const { personal } = portfolioData
 
             <!-- Dedicated CV Download Button -->
             <a
-              href="/cv-placeholder.pdf"
+              href="/CV_Ricardo_Martin_Quiche.pdf"
               download="CV_Ricardo_Martin_Quiche.pdf"
               target="_blank"
               rel="noopener noreferrer"

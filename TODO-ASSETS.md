@@ -43,8 +43,8 @@ Abre el archivo [data/portfolio.ts](file:///c:/Users/marti/Desktop/Portafolio%20
 
 El botón **"Descargar CV"** está presente tanto en el **Navbar** como en la sección principal del **Hero**.
 
-### Ruta Exacta del Archivo:
-- **Ruta actual**: `public/cv-placeholder.pdf`
+### Estado del Archivo:
+- **Ruta activa**: `public/CV_Ricardo_Martin_Quiche.pdf` (✅ CV definitivo vinculado y activo)
 
 ### Opciones de Reemplazo:
 

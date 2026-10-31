@@ -15,7 +15,7 @@ export const portfolioData: PortfolioData = {
     email: 'martinricardo634@gmail.com',
     github: 'https://github.com/rmartin-2023205',
     linkedin: 'https://www.linkedin.com/in/ricardo-martín-quiché-005768349',
-    cvUrl: '/cv-placeholder.pdf'
+    cvUrl: '/CV_Ricardo_Martin_Quiche.pdf'
   },
   navigation: [
     { name: 'Inicio', href: '#inicio' },

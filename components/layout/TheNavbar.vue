@@ -86,7 +86,7 @@ onUnmounted(() => {
       <div class="flex items-center gap-2.5">
         <!-- Dedicated CV Download Button -->
         <a
-          href="/cv-placeholder.pdf"
+          href="/CV_Ricardo_Martin_Quiche.pdf"
           download="CV_Ricardo_Martin_Quiche.pdf"
           target="_blank"
           rel="noopener noreferrer"
@@ -158,7 +158,7 @@ onUnmounted(() => {
 
       <div class="pt-3 mt-2 border-t border-swiss-border dark:border-carbon-border flex flex-col gap-2">
         <a
-          href="/cv-placeholder.pdf"
+          href="/CV_Ricardo_Martin_Quiche.pdf"
           download="CV_Ricardo_Martin_Quiche.pdf"
           target="_blank"
           rel="noopener noreferrer"
